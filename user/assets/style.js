@@ -4,6 +4,7 @@ var myIndex = 0;
 slideshow();
 
 function slideshow() {
+
   var i;
   var x = document.getElementsByClassName("inner-content");
   for (i = 0; i < x.length; i++) {
@@ -15,6 +16,7 @@ function slideshow() {
   x[myIndex].style.display = "block";
   myIndex++; 
   setTimeout(slideshow, 3000); // Change image every 3 seconds
+
 }
 
 // -------------------------------------------- SLIDESHOW ANIMATION END -------------------------------------------------
@@ -22,14 +24,19 @@ function slideshow() {
 // ------------------------------------- CLOSE AND BACK BUTTON FUNCTION START -------------------------------------------
 
 $('.close-btn').on('click',function() {
+
 	$('#login-options-container').css('display', 'none');
 	$('#phone-container').css('display', 'none');
 	$('#email-container').css('display', 'none');
+
 });
+
 $('.back-btn').on('click',function() {
+
 	$('#phone-container').css('display', 'none');
 	$('#email-container').css('display', 'none');
 	$('#login-options-container').css('display', 'block');
+
 });
 
 // -------------------------------------- CLOSE AND BACK BUTTON FUNCTION END --------------------------------------------
@@ -37,12 +44,17 @@ $('.back-btn').on('click',function() {
 // -------------------------------------- LOGIN OPTIONS BUTTON FUNCTION START -------------------------------------------
 
 $('#phone-btn').on('click',function() {
-	$('#phone-container').css('display', 'block');
-	$('#login-options-container').css('display', 'none');
+
+    $('#login-options-container').css('display', 'none');
+    $('#phone-container').css('display', 'block');
+
 });
+
 $('#email-btn').on('click',function() {
+
 	$('#login-options-container').css('display', 'none');
 	$('#email-container').css('display', 'block');
+
 });
 
 // --------------------------------------- LOGIN OPTIONS BUTTON FUNCTION END --------------------------------------------
@@ -50,10 +62,15 @@ $('#email-btn').on('click',function() {
 // -------------------------------------- PHONE INPUT TEXTBOX ANIMATION START -------------------------------------------
 
 $("#phone").focus(function(){
+
     $(".textbox").css("outline", "2px solid #00a591");
+
 });
+
 $("#phone").blur(function(){
+
     $(".textbox").css("outline", "none");
+
 });
 
 // --------------------------------------- PHONE INPUT TEXTBOX ANIMATION END --------------------------------------------
@@ -66,13 +83,17 @@ function validatePhone(input) {
 
     if(phone_constraint.test(input.value))
         $('#phone-input input[type="button"]').css('pointer-events', 'auto');
+    else
+        $('#phone-input input[type="button"]').css('pointer-events', 'none');
 
 }
 
-function validatePassword(input) {
+function matchPassword(input) {
 
     if(input.value == $('#phone-password').val())
         $('#phone-password-btn').css('pointer-events', 'auto');
+    else
+        $('#phone-password-btn').css('pointer-events', 'none');
 
 }
 
@@ -134,6 +155,9 @@ function validateName(input) {
 
     }
 
+    else
+        $('#phone-name-input input[type="button"]').css('pointer-events', 'none');
+
 }
 
 function validateEmail(input) {
@@ -141,6 +165,8 @@ function validateEmail(input) {
     let email_constraint = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if(email_constraint.test(input.value))
         $('#phone-email-input button').css('pointer-events', 'auto');
+    else
+        $('#phone-email-input button').css('pointer-events', 'none');
 
 }
 
@@ -182,16 +208,49 @@ $('#phone-input input[type="button"]').on('click',function() {
             $('.phone-value').text(phoneno);
 
             if (response == 'Already_Registered') {
+
                 $('#phone-input').css('display', 'none');
-                $('#phone-password-input').css('display', 'block');
                 $('#phone-cpassword').css('display', 'none');
                 $('#phone-password-btn').css('display', 'none');
-                $('#phone-signin-btn').css('display', 'block');
+                $('#phone-password-input p').css('display', 'none');
+
+                $('#logo').css('display', 'none');
+                $('#loader').css('display', 'block');
+
+                setTimeout(function() {
+                    $('#loader').css('display', 'none');
+                    $('#logo').css('display', 'block');
+
+                    $('.back-btn').css('visibility', 'visible');
+                    $('.close-btn').css('visibility', 'visible');
+
+                    $('#phone-password-input').css('display', 'block');
+                    $('#phone-password-input label').html('Enter a Password');
+                    $('#phone-signin-btn').css('display', 'block');
+
+                    $('.back-btn').on('click',function() {
+
+                        $('#phone-password-input').css('display', 'none');
+                        $('#phone-input').css('display', 'block');
+
+                    });
+
+                }, 1000);
+
             }
 
             else if (response == 'OTP Success') {
+
 	            $('#phone-input').css('display', 'none');
-	            $('#phone-otp-input').css('display', 'block');
+
+                $('#logo').css('display', 'none');
+                $('#loader').css('display', 'block');
+
+                setTimeout(function() {
+                    $('#loader').css('display', 'none');
+                    $('#logo').css('display', 'block');
+                    $('#phone-otp-input').css('display', 'block');
+                }, 1000);
             }
         }
 
@@ -242,12 +301,21 @@ function onKeyUpEvent1(index, event) {
 
                     if (response == 'Verification Success') {
                         $('#phone-otp-input').css('display', 'none');
-                        $('#phone-password-input').css('display', 'block');
-                    }
+
+                        $('#logo').css('display', 'none');
+                        $('#loader').css('display', 'block');
+
+                        setTimeout(function() {
+                            $('#loader').css('display', 'none');
+                            $('#logo').css('display', 'block');
+                            $('#phone-password-input').css('display', 'block');
+                        }, 1000);
+                    } 
 
                     else {
+                        $('#phone-otp-response').fadeIn();
                         $('#phone-otp-response').html(response);
-                        $('#phone-otp-response').fadeOut(3000)
+                        $('#phone-otp-response').fadeOut(3000);
                     }
                 }
 
@@ -276,7 +344,15 @@ function onFocusEvent1(index) {
 $('#phone-password-btn').on('click',function() {
 
     $('#phone-password-input').css('display', 'none');
-    $('#phone-name-input').css('display', 'block');
+
+    $('#logo').css('display', 'none');
+    $('#loader').css('display', 'block');
+
+    setTimeout(function() {
+        $('#loader').css('display', 'none');
+        $('#logo').css('display', 'block');
+        $('#phone-name-input').css('display', 'block');
+    }, 1000);
 
 });
 
@@ -287,7 +363,15 @@ $('#phone-password-btn').on('click',function() {
 $('#phone-name-input input[type="button"]').on('click',function() {
 
     $('#phone-name-input').css('display', 'none');
-    $('#phone-email-input').css('display', 'block');
+
+    $('#logo').css('display', 'none');
+    $('#loader').css('display', 'block');
+
+    setTimeout(function() {
+        $('#loader').css('display', 'none');
+        $('#logo').css('display', 'block');
+        $('#phone-email-input').css('display', 'block');
+    }, 1000);
 
 });
 
@@ -295,7 +379,9 @@ $('#phone-name-input input[type="button"]').on('click',function() {
 
 // ----------------------------------- PHONE-TAB5 CLICK FUNCTION I.E. SIGNUP START --------------------------------------
 
-$('#phone-email-input button').on('click',function() {
+$('#phone-email-input button').on('click',function(event) {
+
+    event.preventDefault();
 
     let phoneno = $('#phone').val();
     let password = $('#phone-password').val();

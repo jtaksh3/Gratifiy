@@ -57,7 +57,7 @@
 	margin-left: 15px;
 }
 .container .login-options button,
-.container form button,
+.container .form button,
 input[type="button"] {
 	margin: 15px auto;
 	display: block;
@@ -71,11 +71,11 @@ input[type="button"] {
 	cursor: pointer;
 }
 input[type="button"],
-.container form button {
+.container .form button {
 	pointer-events: none;
 }
 .container .login-options button:hover,
-.container form button:hover,
+.container .form button:hover,
 input[type="button"]:hover {
 	background: #00a591;
 	color: #fff;
@@ -115,7 +115,7 @@ input[type="button"]:hover {
 	margin: 20px auto;
 	display: block;
 }
-.container form label {
+.container .form label {
 	text-align: center;
 	display: block;
 	margin: 20px auto;

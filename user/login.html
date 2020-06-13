@@ -38,8 +38,9 @@
         <div class="container" id="phone-container" style="display: none;">
             <button title="Back" class="back-btn">&#8592;</button>
             <button title="Close" class="close-btn">&times;</button>
-            <img src="./assets/img/logo.png">
-            <form onSubmit="return false;">
+            <img id="logo" src="./assets/img/logo.png">
+            <img id="loader" src="./assets/img/load.gif" style="margin: 200px auto; display: none;">
+            <div class="form">
                 <div class="phone-input" id="phone-input">
                     <label>Enter your Phone</label>
                     <span class="textbox">+91 <input type="tel" id="phone" oninput="validatePhone(this)" placeholder="Phone Number" autocomplete="off" /></span>
@@ -48,7 +49,7 @@
                 </div>
                 <div class="otp-input" id="phone-otp-input" style="display: none;">
                     <label>Enter code Received</label>
-                    <p>We have sent a 4-digit code to <span style="font-weight: 600;" class="phone-value"> <i onclick="changePhone()" style="cursor: pointer; " class="fas fa-edit fw fa-2x"></i></p>
+                    <p>We have sent a 4-digit code to <span style="font-weight: 600;" class="phone-value"></span> <i onclick="changePhone()" style="cursor: pointer; " class="fas fa-edit fw fa-1.5x"></i></p>
                     <div class="otp-input-fields">
                         <input id="phone-otp-input-1" type="number" maxlength="1" onkeyup="onKeyUpEvent1(1, event)" onfocus="onFocusEvent1(1)"/>
                         <input id="phone-otp-input-2" type="number" maxlength="1" onkeyup="onKeyUpEvent1(2, event)" onfocus="onFocusEvent1(2)"/>
@@ -64,7 +65,7 @@
                     <div class="phone-password-input-field">
                         <input class="input-field-css" type="password" id="phone-password" placeholder="Password" />
                         <i id="toggle-phone-password" class="fas fa-eye" onclick="togglePhonePassword()"></i>
-                        <input class="input-field-css" type="password" oninput="validatePassword(this)" id="phone-cpassword" placeholder="Confirm Password" />
+                        <input class="input-field-css" type="password" oninput="matchPassword(this)" id="phone-cpassword" placeholder="Confirm Password" />
                         <i id="toggle-phone-cpassword" class="fas fa-eye" onclick="togglePhoneCPassword()"></i>
                     </div>
                     <input type="button" id="phone-password-btn" value="Create Password" onclick="processPhonePasswordInput()">
@@ -85,13 +86,13 @@
                     <p style="color: red;" id="phone-signup-response"></p>
                     <p>We won't reveal your Email to anyone else nor use it to send you Spams</p>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="container" id="email-container" style="display: none;">
             <button title="Back" class="back-btn">&#8592;</button>
             <button title="Close" class="close-btn">&times;</button>
             <img src="./assets/img/logo.png">
-            <form>
+            <div class="form">
                 <div class="email-input" id="email-input">
                     <label>Enter your Email</label>
                     <input class="input-field-css" type="email" id="email" placeholder="Email" autocomplete="off" />
@@ -126,7 +127,7 @@
                         <button>Continue</button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
 
     <script src="./assets/style.js"></script>
