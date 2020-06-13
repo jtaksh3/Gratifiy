@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <meta http-equiv="Cache-control" content="no-cache">
+        <link rel="stylesheet" type="text/css" href="./assets/style.css">
+        <title>Login</title>
+    </head>
+
+    <body>
+        <div class="container" id="login-options-container">
+            <button title="Close" class="close-btn" id="login-options-container-close-btn">&times;</button>
+            <div class="content">
+                <div class="inner-content">
+                    <i class="fas fa-guitar fw fa-5x"></i>
+                    <p>Help in making Gratifiy Safer place to Buy and Sell</p>
+                </div>
+                <div class="inner-content">
+                    <i class="fas fa-hand-holding-heart fw fa-5x"></i>
+                    <p>Contact and Close Deals Faster than ever</p>
+                </div>
+                <div class="inner-content">
+                    <i class="fas fa-users fw fa-5x"></i>
+                    <p>Save all your Favourite items in one Place</p>
+                </div>
+            </div>
+            <div class="login-options">
+                <button><i class="fab fa-facebook fa-fw"></i>Continue with Facebook</button>
+                <button><i class="fab fa-google fa-fw"></i>Continue with Google</button>
+                <button id="phone-btn"><i class="fas fa-phone-square-alt"></i>Continue with Phone</button>
+                <button id="email-btn"><i class="fas fa-envelope"></i>Continue with Email</button>
+            </div>
+            <p>We won't share your Personal Details with Anyone</p>
+        </div>
+        <div class="container" id="phone-container" style="display: none;">
+            <button title="Back" class="back-btn">&#8592;</button>
+            <button title="Close" class="close-btn">&times;</button>
+            <img src="./assets/img/logo.png">
+            <form>
+                <div class="phone-input" id="phone-input">
+                    <label>Enter your Phone</label>
+                    <span class="textbox">+91 <input type="tel" id="phone" oninput="validatePhone(this)" placeholder="Phone Number" autocomplete="off" /></span>
+                    <input type="button" value="Next" id="phone-input-next-btn">
+                    <p>We won't reveal your Phone Number to anyone else nor use it to send you Spams</p>
+                </div>
+                <div class="otp-input" id="phone-otp-input" style="display: none;">
+                    <label>Enter code Received</label>
+                    <p>We have sent a 4-digit code to</p>
+                    <div class="otp-input-fields">
+                        <input id="phone-otp-input-1" type="number" maxlength="1" onkeyup="onKeyUpEvent1(1, event)" onfocus="onFocusEvent1(1)"/>
+                        <input id="phone-otp-input-2" type="number" maxlength="1" onkeyup="onKeyUpEvent1(2, event)" onfocus="onFocusEvent1(2)"/>
+                        <input id="phone-otp-input-3" type="number" maxlength="1" onkeyup="onKeyUpEvent1(3, event)" onfocus="onFocusEvent1(3)"/>
+                        <input id="phone-otp-input-4" type="number" maxlength="1" onkeyup="onKeyUpEvent1(4, event)" onfocus="onFocusEvent1(4)"/>
+                    </div>
+                    <p style="color: red;" id="phone-otp-response"></p>
+                    <p><input type="button" value="Resend OTP" onclick="processPhoneResendOTP()"></p>
+                </div>
+                <div id="phone-password-input" style="display: none;">
+                    <label>Create a Password to login faster next time</label>
+                    <p>You are creating a password for PHONE/EMAIL This will help you login faster next time.</p>
+                    <div class="phone-password-input-field">
+                        <input class="input-field-css" type="password" id="phone-password" placeholder="Password" />
+                        <i id="toggle-phone-password" class="fas fa-eye" onclick="togglePhonePassword()"></i>
+                        <input class="input-field-css" type="password" oninput="validatePassword(this)" id="phone-cpassword" placeholder="Confirm Password" />
+                        <i id="toggle-phone-cpassword" class="fas fa-eye" onclick="togglePhoneCPassword()"></i>
+                    </div>
+                    <input type="button" id="phone-password-btn" value="Create Password" onclick="processPhonePasswordInput()">
+                </div>
+                <div id="phone-name-input"  style="display: none;">
+                    <label>What's your name?</label>
+                    <p>"Stranger" feel so impersonal, you know?</p>
+                    <div class="phone-name-input-field">
+                        <input class="input-field-css" type="text" id="phone-name" placeholder="Name or Nickname" />
+                        <button>Continue</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container" id="email-container" style="display: none;">
+            <button title="Back" class="back-btn">&#8592;</button>
+            <button title="Close" class="close-btn">&times;</button>
+            <img src="./assets/img/logo.png">
+            <form>
+                <div class="email-input" id="email-input">
+                    <label>Enter your Email</label>
+                    <input class="input-field-css" type="email" id="email" placeholder="Email" autocomplete="off" />
+                    <input type="button" value="Next" onclick="processPhoneInput()">
+                    <p>We won't reveal your Email to anyone else nor use it to send you Spams</p>
+                </div>
+                <div class="otp-input" id="email-otp-input" style="display: none;">
+                    <label>Enter code Received</label>
+                    <p>We have sent a 4-digit code to</p>
+                    <div class="otp-input-fields">
+                        <input id="email-otp-input-1" type="number" maxlength="1" onkeyup="onKeyUpEvent2(1, event)" onfocus="onFocusEvent2(1)"/>
+                        <input id="email-otp-input-2" type="number" maxlength="1" onkeyup="onKeyUpEvent2(2, event)" onfocus="onFocusEvent2(2)"/>
+                        <input id="email-otp-input-3" type="number" maxlength="1" onkeyup="onKeyUpEvent2(3, event)" onfocus="onFocusEvent2(3)"/>
+                        <input id="email-otp-input-4" type="number" maxlength="1" onkeyup="onKeyUpEvent2(4, event)" onfocus="onFocusEvent2(4)"/>
+                    </div>
+                    <p><input type="button" value="Resend OTP" onclick="processPhoneResendOTP()"></p>
+                </div>
+                <div id="email-password-input" style="display: none;">
+                    <label>Create a Password to login faster next time</label>
+                    <p>You are creating a password for PHONE/EMAIL This will help you login faster next time.</p>
+                    <div class="email-password-input-field">
+                        <input class="input-field-css" type="password" id="email-password" placeholder="Password" />
+                        <input class="input-field-css" type="password" id="email-cpassword" placeholder="Confirm Password" />
+                        <input type="button" value="Create Password" onclick="processPhonePasswordInput()">
+                    </div>
+                </div>
+                <div id="email-name-input" style="display: none;">
+                    <label>What's your name?</label>
+                    <p>"Stranger" feel so impersonal, you know?</p>
+                    <div class="email-name-input-field">
+                        <input class="input-field-css" type="text" id="email-name" placeholder="Name or Nickname" />
+                        <button>Continue</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    <script src="./assets/style.js"></script>
+
+    </body>
+
+</html>

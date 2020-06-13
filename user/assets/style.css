@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'HelveticaNeue', sans-serif;
+}
+/*Animations*/
+@keyframes opac {
+	from {
+		opacity:0;
+	} 
+	to {
+		opacity:1;
+	}
+}
+.container {
+	display: block;
+	margin: auto;
+	margin-top: 40px;
+	width: 400px;
+	height: 580px;
+	border: 1px solid #00a591;
+	box-shadow: 0px 1px 5px #777;
+	box-sizing: border-box;
+	animation:opac 2s;
+}
+.close-btn {
+	float: right;
+	background: transparent;
+	border: none;
+	outline: none;
+	color: red;
+	font-size: 40px;
+	cursor: pointer;
+	margin-right: 35px;
+	opacity: 0.7;
+	font-weight: 800;
+}
+.close-btn:hover {
+	opacity: 1;
+}
+.container .content .inner-content {
+	display: none;
+}
+.container .content .inner-content i {
+	color: #00a591;
+	text-align: center;
+	display: block;
+	margin: 20px auto;
+	margin-left: 50px;
+}
+.container .content .inner-content p {
+	margin: 30px;
+	font-size: 13px;
+}
+.container .login-options i {
+	float: left;
+	margin-left: 15px;
+}
+.container .login-options button,
+.container form button,
+input[type="button"] {
+	margin: 15px auto;
+	display: block;
+	background: none;
+	font-size: 18px;
+	color: #00a591;
+	border: 2px solid #00a591;
+	outline: none;
+	padding: 18px 0px;
+	width: 300px;
+	cursor: pointer;
+}
+input[type="button"] {
+	pointer-events: none;
+}
+.container .login-options button:hover,
+.container form button:hover,
+input[type="button"]:hover {
+	background: #00a591;
+	color: #fff;
+}
+.container p {
+	font-size: 12px;
+	text-align: center;
+	display: block;
+	margin: auto;
+}
+.container form i {
+	float: right; 
+	cursor: pointer; 
+	margin: -55px 60px 0px 0px;
+	color: #00a591;
+}
+#phone-password-input p {
+	padding: 0px 40px;
+}
+.container .back-btn {
+	float: left;
+	background: transparent;
+	border: none;
+	outline: none;
+	font-size: 40px;
+	cursor: pointer;
+	margin-left: 20px;
+	margin-bottom: 30px;
+	opacity: 0.7;
+	font-weight: 1000;
+}
+.container .back-btn:hover {
+	opacity: 1;
+}
+.container img {
+	max-height: 180px;
+	margin: 20px auto;
+	display: block;
+}
+.container form label {
+	text-align: center;
+	display: block;
+	margin: 20px auto;
+	padding: 0px 40px;
+	font-size: 20px;
+	color: #00a591;
+	font-weight: 800;
+}
+.container .phone-input .textbox {
+    background-color: #FFF;
+	color: #888;
+	border:1px solid #00a591;
+	font-size: 20px;
+	margin: auto;
+	display: block;
+	width: 298px;
+}
+.container .phone-input .textbox input {
+	width: 227.5px;
+    font-size: 20px;
+    outline: none;
+    color: #00a591;
+    border: none;
+    border-left: 1px solid #00a591;
+    height: 50px;
+    padding: 0px 15px;
+}
+.container .phone-input p,
+.container .email-input p {
+	font-size: 12px;
+	text-align: center;
+	margin: 50px 40px;
+}
+.container .input-field-css {
+	width: 265px;
+    font-size: 20px;
+    outline: none;
+    color: #00a591;
+    border: 1px solid #00a591;
+    height: 50px;
+    display: block;
+    margin: 20px auto;
+    padding: 0px 15px;
+}
+.container .input-field-css:focus {
+	outline: 3px solid #00a591;
+}
+.container .otp-input .otp-input-fields {
+	display: block;
+	width: 239.2px;
+	margin: 30px auto;
+}
+.container .otp-input .otp-input-fields input {
+    height: 55px;
+    width: 55px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid #00a591;
+    outline: none;
+}
+.container .otp-input .otp-input-fields input:focus {
+	outline: 3px solid #00a591;
+}
+.container .otp-input .otp-input-fields input::-webkit-inner-spin-button,
+.container .otp-input .otp-input-fields input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.container .otp-input p input[type="button"] {
+	background: none;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	color: #00a591;
+	font-size: 16px;
+}
