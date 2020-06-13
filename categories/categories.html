@@ -1,0 +1,211 @@
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>April</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+        <link rel="stylesheet" href="./assets/style.css">
+        <link rel="stylesheet" href="../assets/navbar-footer.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    </head>
+    <body onload="loadFunction()">
+        <i style="color: #00a591; display: block; margin: 20% auto;" id="loader" class="fas fa-spinner fa-pulse fa-6x fa-fw"></i>
+        <div class="whole-page" id="whole-page" style="display: none;">
+        <!-- Nav Bar Start -->
+        <div class="navBar">
+            <div class="header">
+                <div class="logo">
+                    <!-- <h3><a href="#">Gratifiy.com</a></h3> -->
+                    <a href="../index.php"><img src="../assets/img/logo.png"></a>
+                </div>
+                <div class="navigation">
+                    <ul>
+                        <li title="Home"><a href="../index.php" class="home">Home</a></li>
+                        <li title="Browse Advertisements" ><a href="#" class="navads">Browse Ads</a></li>
+                        <li title="How it Works">
+                            <a href="../howitworks" class="works">How It Works</a>
+                            <ul class="navads-dropdown">
+                                <li title="Frequently Asked Questions"><a href="../howitworks/FAQ">FAQ</a></li>
+                            </ul>
+                        </li>
+                        <li title="All Categories"><a href="#" class="cat active">All Categories</a></li>
+                        <li title="Contact us"><a href="../contact/contact.php" class="contact">Contact</a></li>
+                        <li title="Compare"><a href="#"><img src="../assets/img/Compare.svg"></a></li>
+                        <li title="Login"><a href="../user/signin-signup/Login.php"><img src="../assets/img/Login.svg"></a></li>
+                        <li title="Submit Advertisement"><a href="#"><img src="../assets/img/Submit.svg">Submit Ad</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="menuBar">
+            <div class="toogle"></div>
+            <div class="menuBar-nav hide">
+                <ul>
+                    <li><a href="../index.php">Home </a></li>
+                    <li><a href="#">Browse Ads</a></li>
+                    <li class="dropdown-btn"><a href="../howitworks">How It Works</a><i class="fa fa-caret-down" style="float: right;"></i></li>
+                    <div class="dropdown-container">
+                        <li title="Frequently Asked Questions"><a href="../howitworks/FAQ">FAQ</a></li>
+                    </div>
+                    <li><a href="#">All Categories</a></li>
+                    <li><a href="../contact/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="logo">
+                <a href="#"><img src="../assets/img/logo.png"></a>
+            </div>
+            <div class="login-icon">
+                <a href="#"><img src="../assets/img/Submit-green.svg"></a>
+            </div>
+        </div>
+        <div class="menuBar-bottom">
+            <ul>
+                <li><a href="#"><img src="../assets/img/search.svg"></a></li>
+                <li><a href="../user/signin-signup/Login.php"><img src="../assets/img/Login.svg" alt=""></a></li>
+                <li><a href="#"><img src="../assets/img/Compare.svg" alt=""></a></li>
+            </ul>
+        </div>
+        <!-- Nav Bar End -->
+
+        <!-- Contact Head Start -->
+        <div class="head">
+            <div class="head-inside">
+                <div class="head-text">
+                    <h3>All Categories</h3>
+                    <p>Home > All Categories</p>
+                </div>
+                <img src="../assets/img/binocular.svg">
+            </div>
+        </div>
+        <!-- Contact Head End -->
+
+        <!-- Search Start -->
+        <div class="search">
+            <div class="search-inside">
+                <input type="text" name="search" placeholder="Search For" required>
+                <input type="text" name="place" placeholder="Where" required>
+                <datalist id="place">
+                </datalist>
+                <input type="text" name="cat" placeholder="In Category">
+                <datalist id="place">
+                </datalist>
+                <button>Submit</button>
+            </div>
+        </div>
+        <!-- Search End -->
+
+        <!-- Categories Start -->
+        <div class="container">
+            <div class="container-inside">
+                <div class="cat-grid">
+                    <div class="cat-grid-inside">
+                        <a href="#" class="cat-grid-img">
+                            <img src="../assets/img/Electronics.svg">
+                        </a>
+                        <a href="#" class="cat-grid-text">
+                            <h3>Electronics</h3>
+                            <p>1 ad posted</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="cat-grid">
+                    <div class="cat-grid-inside">
+                        <a href="#" class="cat-grid-img">
+                            <img src="../assets/img/Sofa.svg">
+                        </a>
+                        <a href="#" class="cat-grid-text">
+                            <h3>Furniture</h3>
+                            <p>1 ad posted</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="cat-grid">
+                    <div class="cat-grid-inside">
+                        <a href="#" class="cat-grid-img">
+                            <img src="../assets/img/Jobs.svg">
+                        </a>
+                        <a href="#" class="cat-grid-text">
+                            <h3>Jobs</h3>
+                            <p>1 ad posted</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="cat-grid">
+                    <div class="cat-grid-inside">
+                        <a href="#" class="cat-grid-img">
+                            <img src="../assets/img/Estate.svg">
+                        </a>
+                        <a href="#" class="cat-grid-text">
+                            <h3>Real Estate</h3>
+                            <p>1 ad posted</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="cat-grid">
+                    <div class="cat-grid-inside">
+                        <a href="#" class="cat-grid-img">
+                            <img src="../assets/img/Services.svg">
+                        </a>
+                        <a href="#" class="cat-grid-text">
+                            <h3>Services</h3>
+                            <p>1 ad posted</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="cat-grid">
+                    <div class="cat-grid-inside">
+                        <a href="#" class="cat-grid-img">
+                            <img src="../assets/img/Bike.svg">
+                        </a>
+                        <a href="#" class="cat-grid-text">
+                            <h3>Vehicles</h3>
+                            <p>1 ad posted</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Categories End -->
+
+        <!-- Subscribe Start -->
+        <div class="subscribe">
+            <div class="subscribe-inside">
+                <div class="subscribe-head">
+                    <img src="../assets/img/msg.svg">
+                    <div class="subscribe-title">
+                        <h4>Subscribe To Newsletter</h4>
+                        <p>and receive new ads in inbox</p>
+                    </div>
+                </div>
+                <div class="subscribe-form">
+                    <input type="email" name="email" placeholder="Input Your Email Address">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <!-- Subscribe End -->
+
+        <!-- Footer Start -->
+        <div class="footer-button">
+            <a href="#"><img src="../assets/img/up-arrow.svg"></a>
+        </div>
+
+        <footer>
+            <div class="footer-text">
+                Crafted with &hearts; by Grafitiy.com
+            </div>
+            <ul class="footer-icon">
+                <li><a href="#"><img src="../assets//img/facebook.png"></a></li>
+                <li><a href="#"><img src="../assets/img/twitter.png"></a></li>
+                <li><a href="#"><img src="../assets/img/youtube.svg"></a></li>
+                <li><a href="#"><img src="../assets/img/instagram.svg"></a></li>
+                <li><a href="#"><img src="../assets/img/pinterest.svg"></a></li>
+            </ul>
+        </footer>
+    </div>
+        <!-- Footer End -->
+        <script src="./assets/style.js"></script>
+    </body>
+</html>
