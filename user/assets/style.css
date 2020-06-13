@@ -70,7 +70,8 @@ input[type="button"] {
 	width: 300px;
 	cursor: pointer;
 }
-input[type="button"] {
+input[type="button"],
+.container form button {
 	pointer-events: none;
 }
 .container .login-options button:hover,
@@ -85,7 +86,7 @@ input[type="button"]:hover {
 	display: block;
 	margin: auto;
 }
-.container form i {
+#phone-password-input i {
 	float: right; 
 	cursor: pointer; 
 	margin: -55px 60px 0px 0px;

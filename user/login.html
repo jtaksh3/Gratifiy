@@ -39,7 +39,7 @@
             <button title="Back" class="back-btn">&#8592;</button>
             <button title="Close" class="close-btn">&times;</button>
             <img src="./assets/img/logo.png">
-            <form>
+            <form onSubmit="return false;">
                 <div class="phone-input" id="phone-input">
                     <label>Enter your Phone</label>
                     <span class="textbox">+91 <input type="tel" id="phone" oninput="validatePhone(this)" placeholder="Phone Number" autocomplete="off" /></span>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="otp-input" id="phone-otp-input" style="display: none;">
                     <label>Enter code Received</label>
-                    <p>We have sent a 4-digit code to</p>
+                    <p>We have sent a 4-digit code to <span style="font-weight: 600;" class="phone-value"> <i onclick="changePhone()" style="cursor: pointer; " class="fas fa-edit fw fa-2x"></i></p>
                     <div class="otp-input-fields">
                         <input id="phone-otp-input-1" type="number" maxlength="1" onkeyup="onKeyUpEvent1(1, event)" onfocus="onFocusEvent1(1)"/>
                         <input id="phone-otp-input-2" type="number" maxlength="1" onkeyup="onKeyUpEvent1(2, event)" onfocus="onFocusEvent1(2)"/>
@@ -60,7 +60,7 @@
                 </div>
                 <div id="phone-password-input" style="display: none;">
                     <label>Create a Password to login faster next time</label>
-                    <p>You are creating a password for PHONE/EMAIL This will help you login faster next time.</p>
+                    <p>You are creating a password for <span style="font-weight: 600;" class="phone-value"></span> This will help you login faster next time.</p>
                     <div class="phone-password-input-field">
                         <input class="input-field-css" type="password" id="phone-password" placeholder="Password" />
                         <i id="toggle-phone-password" class="fas fa-eye" onclick="togglePhonePassword()"></i>
@@ -68,14 +68,22 @@
                         <i id="toggle-phone-cpassword" class="fas fa-eye" onclick="togglePhoneCPassword()"></i>
                     </div>
                     <input type="button" id="phone-password-btn" value="Create Password" onclick="processPhonePasswordInput()">
+                    <input type="button" id="phone-signin-btn" value="Sign in" style="display: none;">
                 </div>
                 <div id="phone-name-input"  style="display: none;">
                     <label>What's your name?</label>
                     <p>"Stranger" feel so impersonal, you know?</p>
                     <div class="phone-name-input-field">
-                        <input class="input-field-css" type="text" id="phone-name" placeholder="Name or Nickname" />
-                        <button>Continue</button>
+                        <input class="input-field-css" oninput="validateName(this)" type="text" id="phone-name" placeholder="Name or Nickname" />
+                        <input type="button" value="Next">
                     </div>
+                </div>
+                <div id="phone-email-input" style="display: none;">
+                    <label>Enter your Email</label>
+                    <input class="input-field-css" type="email" oninput="validateEmail(this)" id="phone-email" placeholder="Email" autocomplete="off" />
+                    <button>Continue</button>
+                    <p style="color: red;" id="phone-signup-response"></p>
+                    <p>We won't reveal your Email to anyone else nor use it to send you Spams</p>
                 </div>
             </form>
         </div>

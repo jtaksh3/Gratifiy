@@ -58,43 +58,100 @@ $("#phone").blur(function(){
 
 // --------------------------------------- PHONE INPUT TEXTBOX ANIMATION END --------------------------------------------
 
+// ---------------------------------------- PHONE VALIDATION FUNCTION START ---------------------------------------------
+
 function validatePhone(input) {
+
     let phone_constraint = /^[6-9]\d{9}$/;
+
     if(phone_constraint.test(input.value))
         $('#phone-input input[type="button"]').css('pointer-events', 'auto');
+
 }
+
 function validatePassword(input) {
 
-    if(input.value == $('phone-password').val())
+    if(input.value == $('#phone-password').val())
         $('#phone-password-btn').css('pointer-events', 'auto');
+
 }
+
 function togglePhonePassword() {
+
   var x = document.getElementById("phone-password");
   var y = document.getElementById("toggle-phone-password");
+
   if (x.type === "password") {
+
     y.classList.remove("fa-eye");
     y.classList.add("fa-eye-slash");
     x.type = "text";
+
   } else {
+
     y.classList.remove("fa-eye-slash");
     y.classList.add("fa-eye");
     x.type = "password";
+
   }
+
 }
 
 function togglePhoneCPassword() {
+
   var x = document.getElementById("phone-cpassword");
   var y = document.getElementById("toggle-phone-cpassword");
+
   if (x.type === "password") {
+
     y.classList.remove("fa-eye");
     y.classList.add("fa-eye-slash");
     x.type = "text";
+
   } else {
+
     y.classList.remove("fa-eye-slash");
     y.classList.add("fa-eye");
     x.type = "password";
+
   }
+
 }
+
+function validateName(input) {
+
+    if (input.value.trim().length) {
+
+        str = input.value;
+        str = str.split(" ");
+    
+        for (let i = 0, x = str.length; i < x; i++)
+            str[i] = str[i][0].toUpperCase() + str[i].substr(1).toLowerCase();
+
+        input.value = str.join(" ");
+
+        $('#phone-name-input input[type="button"]').css('pointer-events', 'auto');
+
+    }
+
+}
+
+function validateEmail(input) {
+
+    let email_constraint = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(email_constraint.test(input.value))
+        $('#phone-email-input button').css('pointer-events', 'auto');
+
+}
+
+function changePhone() {
+
+    $('#phone-otp-input').css('display', 'none');
+    $('#phone-input').css('display', 'block');
+
+}
+
+// ------------------------------------------ PHONE VALIDATION FUNCTION END ---------------------------------------------
 
 // ----------------------------------------- PHONE-TAB1 CLICK FUNCTION START --------------------------------------------
 
@@ -122,12 +179,14 @@ $('#phone-input input[type="button"]').on('click',function() {
 
             $('.back-btn').css('visibility', 'hidden');
             $('.close-btn').css('visibility', 'hidden');
+            $('.phone-value').text(phoneno);
 
             if (response == 'Already_Registered') {
                 $('#phone-input').css('display', 'none');
                 $('#phone-password-input').css('display', 'block');
                 $('#phone-cpassword').css('display', 'none');
-                $('#phone-password-btn').html('Login');
+                $('#phone-password-btn').css('display', 'none');
+                $('#phone-signin-btn').css('display', 'block');
             }
 
             else if (response == 'OTP Success') {
@@ -141,16 +200,7 @@ $('#phone-input input[type="button"]').on('click',function() {
 
 // ------------------------------------------ PHONE-TAB1 CLICK FUNCTION END ---------------------------------------------
 
-// ----------------------------------------- PHONE-TAB3 CLICK FUNCTION START --------------------------------------------
-
-$('#phone-password-input input[type="button"]').on('click',function() {
-	$('#phone-password-input').css('display', 'none');
-	$('#phone-name-input').css('display', 'block');
-});
-
-// ------------------------------------------ PHONE-TAB3 CLICK FUNCTION END ---------------------------------------------
-
-// --------------------------------------- OTP INPUT TEXTBOX ANIMATION START --------------------------------------------
+// -------------------------------------------- PHONE-TAB2 FUNCTION START -----------------------------------------------
 
 function getCodeBoxElement1(index) {
     return document.getElementById('phone-otp-input-' + index);
@@ -178,6 +228,13 @@ function onKeyUpEvent1(index, event) {
                     phone3: phone3,
                     phone4: phone4
                 },
+
+                beforeSend: function() {
+                    $('#phone-otp-input-1').val("");
+                    $('#phone-otp-input-2').val("");
+                    $('#phone-otp-input-3').val("");
+                    $('#phone-otp-input-4').val("");
+                },
     
                 success: function(response) {
 
@@ -190,6 +247,7 @@ function onKeyUpEvent1(index, event) {
 
                     else {
                         $('#phone-otp-response').html(response);
+                        $('#phone-otp-response').fadeOut(3000)
                     }
                 }
 
@@ -210,6 +268,83 @@ function onFocusEvent1(index) {
         }
     }
 }
+
+// --------------------------------------------- PHONE-TAB2 FUNCTION END ------------------------------------------------
+
+// ----------------------------------------- PHONE-TAB3 CLICK FUNCTION START --------------------------------------------
+
+$('#phone-password-btn').on('click',function() {
+
+    $('#phone-password-input').css('display', 'none');
+    $('#phone-name-input').css('display', 'block');
+
+});
+
+// ------------------------------------------ PHONE-TAB3 CLICK FUNCTION END ---------------------------------------------
+
+// ----------------------------------------- PHONE-TAB4 CLICK FUNCTION START --------------------------------------------
+
+$('#phone-name-input input[type="button"]').on('click',function() {
+
+    $('#phone-name-input').css('display', 'none');
+    $('#phone-email-input').css('display', 'block');
+
+});
+
+// ------------------------------------------ PHONE-TAB4 CLICK FUNCTION END ---------------------------------------------
+
+// ----------------------------------- PHONE-TAB5 CLICK FUNCTION I.E. SIGNUP START --------------------------------------
+
+$('#phone-email-input button').on('click',function() {
+
+    let phoneno = $('#phone').val();
+    let password = $('#phone-password').val();
+    let name = $('#phone-name').val();
+    let email = $('#phone-email').val();
+
+    $.ajax({
+        url: "../bin/user/signup.php",
+        type: "POST",
+        data: JSON.stringify({
+            phoneno: phoneno,
+            password: password,
+            name: name,
+            email: email
+        }),
+
+        beforeSend: function() {
+    
+            $('#phone-email-input button')
+                .html('<i class="fas fa-sync-alt"></i> Please Wait')
+                .css("pointer-events", "none");
+
+        },
+    
+        success: function(response) {
+
+            if (response.code == "SIGNUP_SUCCESS") {
+
+                $('#phone-email-input button').html('<i class="fa fa-circle-o-notch fa-spin"></i>   Signing up');
+
+                window.location.href = "../index.php";
+
+            }
+
+        },
+
+        error: function(request, error) {
+
+            $('#phone-signup-response').html("Server Error");
+        }
+
+    });
+});
+
+// ----------------------------------- PHONE-TAB5 CLICK FUNCTION I.E. SIGNUP END ----------------------------------------
+
+// --------------------------------------- OTP INPUT TEXTBOX ANIMATION START --------------------------------------------
+
+
 
 function getCodeBoxElement2(index) {
     return document.getElementById('email-otp-input-' + index);
