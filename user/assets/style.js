@@ -139,6 +139,27 @@ function togglePhoneCPassword() {
 
 }
 
+function togglePhoneSigninPassword() {
+
+  var x = document.getElementById("phone-signin-password");
+  var y = document.getElementById("toggle-phone-signin-password");
+
+  if (x.type === "password") {
+
+    y.classList.remove("fa-eye");
+    y.classList.add("fa-eye-slash");
+    x.type = "text";
+
+  } else {
+
+    y.classList.remove("fa-eye-slash");
+    y.classList.add("fa-eye");
+    x.type = "password";
+
+  }
+
+}
+
 function validateName(input) {
 
     if (input.value.trim().length) {
@@ -210,9 +231,6 @@ $('#phone-input input[type="button"]').on('click',function() {
             if (response == 'Already_Registered') {
 
                 $('#phone-input').css('display', 'none');
-                $('#phone-cpassword').css('display', 'none');
-                $('#phone-password-btn').css('display', 'none');
-                $('#phone-password-input p').css('display', 'none');
 
                 $('#logo').css('display', 'none');
                 $('#loader').css('display', 'block');
@@ -221,25 +239,13 @@ $('#phone-input input[type="button"]').on('click',function() {
                     $('#loader').css('display', 'none');
                     $('#logo').css('display', 'block');
 
-                    $('.back-btn').css('visibility', 'visible');
-                    $('.close-btn').css('visibility', 'visible');
-
-                    $('#phone-password-input').css('display', 'block');
-                    $('#phone-password-input label').html('Enter a Password');
-                    $('#phone-signin-btn').css('display', 'block');
-
-                    $('.back-btn').on('click',function() {
-
-                        $('#phone-password-input').css('display', 'none');
-                        $('#phone-input').css('display', 'block');
-
-                    });
+                    $('#phone-signin-password-input').css('display', 'block');
 
                 }, 1000);
 
             }
 
-            else if (response == 'OTP Success') {
+            else {
 
 	            $('#phone-input').css('display', 'none');
 
@@ -358,7 +364,59 @@ $('#phone-password-btn').on('click',function() {
 
 // ------------------------------------------ PHONE-TAB3 CLICK FUNCTION END ---------------------------------------------
 
-// ----------------------------------------- PHONE-TAB4 CLICK FUNCTION START --------------------------------------------
+$("#phone-signin-btn").on("click", function(event) {
+
+    event.preventDefault();
+
+    let phoneno = $('#phone').val();
+    let password = $('#phone-signin-password').val();
+
+    //AJAX request for signin form
+    $.ajax({
+        url: "../bin/user/signin.php",
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({
+            username: username,
+            password: password
+        }),
+        beforeSend: function() {
+
+            $("#phone-signin-btn")
+                .html('<i class="fa fa-exchange" aria-hidden="true"></i> Please Wait')
+                .css("pointer-events", "none");
+            $('#phone').val('');
+            $('#phone-signin-password').val('');
+        },
+        success: function(response) {
+
+            if (response.code == "SIGNIN_SUCCESS") {
+                //User credentials has been successfully validated
+                $("#phone-signin-btn")
+                    .html('<i class="fa fa-spinner fa-spin"></i>   Signing in')
+                    .css("pointer-events", "auto");
+                window.location.href = "../index.php";
+
+            } else if (response.code == "SIGNIN_FAILED") {
+                //User has provided invalid credentials or is not registered
+                $("#phone-signin-btn")
+                    .html('<i class="fa fa-user-plus" aria-hidden="true"></i> Sign in')
+                    .css("pointer-events", "auto");
+                showError("Invalid Login Credentials");
+        },
+        error: function(request, error) {
+
+            $("#phone-signin-btn")
+                .html('<i class="fa fa-user-plus" aria-hidden="true"></i> Sign in')
+                .css("pointer-events", "auto");
+            showError("Server error. Try again later.");
+        }
+    });
+});
+
+
+// ----------------------------------------- PHONE-TAB5 CLICK FUNCTION START --------------------------------------------
 
 $('#phone-name-input input[type="button"]').on('click',function() {
 
@@ -375,9 +433,9 @@ $('#phone-name-input input[type="button"]').on('click',function() {
 
 });
 
-// ------------------------------------------ PHONE-TAB4 CLICK FUNCTION END ---------------------------------------------
+// ------------------------------------------ PHONE-TAB5 CLICK FUNCTION END ---------------------------------------------
 
-// ----------------------------------- PHONE-TAB5 CLICK FUNCTION I.E. SIGNUP START --------------------------------------
+// ----------------------------------- PHONE-TAB6 CLICK FUNCTION I.E. SIGNUP START --------------------------------------
 
 $('#phone-email-input button').on('click',function(event) {
 
@@ -408,7 +466,9 @@ $('#phone-email-input button').on('click',function(event) {
     
         success: function(response) {
 
-            if (response.code == "SIGNUP_SUCCESS") {
+            response = $.trim(response);
+
+            if (response == "SIGNUP_SUCCESS") {
 
                 $('#phone-email-input button').html('<i class="fa fa-circle-o-notch fa-spin"></i>   Signing up');
 
@@ -426,7 +486,7 @@ $('#phone-email-input button').on('click',function(event) {
     });
 });
 
-// ----------------------------------- PHONE-TAB5 CLICK FUNCTION I.E. SIGNUP END ----------------------------------------
+// ----------------------------------- PHONE-TAB6 CLICK FUNCTION I.E. SIGNUP END ----------------------------------------
 
 // --------------------------------------- OTP INPUT TEXTBOX ANIMATION START --------------------------------------------
 

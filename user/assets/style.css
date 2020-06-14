@@ -86,7 +86,8 @@ input[type="button"]:hover {
 	display: block;
 	margin: auto;
 }
-#phone-password-input i {
+#phone-password-input i,
+#phone-signin-password-input i {
 	float: right; 
 	cursor: pointer; 
 	margin: -55px 60px 0px 0px;

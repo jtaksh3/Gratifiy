@@ -33,18 +33,7 @@ $body = json_decode($body, true);
         
         $response = $user->signup();
 
-        if ($response == 'SIGNUP_SUCCESS') {
-            
-            exit(json_encode(array("code" => $response)));
-
-        } else {
-            
-            exit(json_encode(array("code" => 'SERVER ERROR')));
-
-        }
-    } else {
-    
-    exit(json_encode(array("code" => 'FORM_NOT_SUBMITTED')));
-    
+        if ($response == 'SIGNUP_SUCCESS')
+            exit($response);
     }
 ?>

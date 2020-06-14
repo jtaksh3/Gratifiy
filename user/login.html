@@ -35,7 +35,7 @@
             </div>
             <p>We won't share your Personal Details with Anyone</p>
         </div>
-        <div class="container" id="phone-container" style="display: none;">
+        <div class="container" id="phone-container">
             <button title="Back" class="back-btn">&#8592;</button>
             <button title="Close" class="close-btn">&times;</button>
             <img id="logo" src="./assets/img/logo.png">
@@ -69,7 +69,15 @@
                         <i id="toggle-phone-cpassword" class="fas fa-eye" onclick="togglePhoneCPassword()"></i>
                     </div>
                     <input type="button" id="phone-password-btn" value="Create Password" onclick="processPhonePasswordInput()">
-                    <input type="button" id="phone-signin-btn" value="Sign in" style="display: none;">
+                </div>
+                <div id="phone-signin-password-input" style="display: none;">
+                    <label>Enter a Password</label>
+                    <div class="phone-password-input-field">
+                        <input class="input-field-css" type="password" id="phone-signin-password" placeholder="Password" />
+                        <i id="toggle-phone-signin-password" class="fas fa-eye" onclick="togglePhoneSigninPassword()"></i>
+                    </div>
+                    <p style="color: red;" id="phone-signin-response"></p>
+                    <input type="button" id="phone-signin-btn" value="Sign in">
                 </div>
                 <div id="phone-name-input"  style="display: none;">
                     <label>What's your name?</label>

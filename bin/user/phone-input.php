@@ -22,51 +22,29 @@ if (isset($_POST['phoneno'])) {
 
     session_start();
 
-    $sender = 'GRATIFIY';
     $otp = rand(1000, 9999);
 
     $_SESSION['session_otp'] = $otp;
-                
-$field = array(
-    "sender_id" => "GRTFY",
-    "language" => "english",
-    "route" => "p",
-    "numbers" => $phone,
-    "message" => "Your One time Password for the verification is " . $otp,
-    "variables" => "{#AA#}|{#CC#}",
-    "variables_values" => "12345|asdaswdx"
-);
+    
+    $username="jtaksh3";
 
-$curl = curl_init();
+    $password="Aksh1234*";
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://www.fast2sms.com/dev/bulk",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_SSL_VERIFYHOST => 0,
-  CURLOPT_SSL_VERIFYPEER => 0,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => json_encode($field),
-  CURLOPT_HTTPHEADER => array(
-    "authorization: 0oNkxdUWGBqjCHETf2psDIPyJzw64VgFXlaem8S9MARbvYicnKrljkiO1KVt7sZzBxq9RLW8YgAHphS0",
-    "cache-control: no-cache",
-    "accept: */*",
-    "content-type: application/json"
-  ),
-));
+    $message="Your OTP for the Verification is " . $otp;
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+    $sender=" TestID";
 
-curl_close($curl);
+    $url="login.bulksmsgateway.in/sendmessage.php?user=".urlencode($username)."&password=".urlencode($password)."&mobile=".urlencode($phone)."&sender=".urlencode($sender)."&message=".urlencode($message)."&type=".urlencode('3');
 
-if ($err)
-  exit('OTP Failed');
-else
-  exit('OTP Success');
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $curl_scraped_page = curl_exec($ch);
+
+    curl_close($ch);
+
+    exit('OTP_SUCCESS');
 
 }
 
