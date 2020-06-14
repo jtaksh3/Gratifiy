@@ -44,4 +44,16 @@ if (isset($_POST['phone1']) && isset($_POST['phone2']) && isset($_POST['phone3']
     exit(json_encode(array("code" => 'OTP_MATCH_FAILED')));
 }
 
+if (isset($_POST['resend'])) {
+
+    if($_POST['resend']) {
+
+        if($user->sendPhoneOTP($phone))
+            exit(json_encode(array("code" => 'OTP_SENT_SUCCESSFULLY')));
+
+    }
+
+    exit(json_encode(array("code" => 'OTP_SENT_FAILED')));
+}
+
 ?>
