@@ -59,6 +59,10 @@ $('#email-btn').on('click',function() {
 
 // --------------------------------------- LOGIN OPTIONS BUTTON FUNCTION END --------------------------------------------
 
+//-----------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------- PHONE JS/JQUERY START ---------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------
+
 // -------------------------------------- PHONE INPUT TEXTBOX ANIMATION START -------------------------------------------
 
 $("#phone").focus(function(){
@@ -86,6 +90,14 @@ function validatePhone(input) {
     else
         $('#phone-input input[type="button"]').css('pointer-events', 'none');
 
+}
+
+function validateSigninPassword(input) {
+
+    if (input.value.trim().length)
+        $('#phone-signin-btn').css('pointer-events', 'auto');
+    else
+        $('#phone-signin-btn').css('pointer-events', 'none');
 }
 
 function matchPassword(input) {
@@ -364,6 +376,8 @@ $('#phone-password-btn').on('click',function() {
 
 // ------------------------------------------ PHONE-TAB3 CLICK FUNCTION END ---------------------------------------------
 
+// ----------------------------------- PHONE-TAB4 CLICK FUNCTION I.E. SIGNIN START --------------------------------------
+
 $("#phone-signin-btn").on("click", function(event) {
 
     event.preventDefault();
@@ -373,12 +387,12 @@ $("#phone-signin-btn").on("click", function(event) {
 
     //AJAX request for signin form
     $.ajax({
-        url: "../bin/user/signin.php",
-        method: "POST",
+        url: "../bin/user/phone-signin.php",
+        type: "POST",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify({
-            username: username,
+            phoneno: phoneno,
             password: password
         }),
         beforeSend: function() {
@@ -391,6 +405,8 @@ $("#phone-signin-btn").on("click", function(event) {
         },
         success: function(response) {
 
+            // response = $.trim(response);
+
             if (response.code == "SIGNIN_SUCCESS") {
                 //User credentials has been successfully validated
                 $("#phone-signin-btn")
@@ -398,23 +414,39 @@ $("#phone-signin-btn").on("click", function(event) {
                     .css("pointer-events", "auto");
                 window.location.href = "../index.php";
 
-            } else if (response.code == "SIGNIN_FAILED") {
+            } else {
                 //User has provided invalid credentials or is not registered
                 $("#phone-signin-btn")
-                    .html('<i class="fa fa-user-plus" aria-hidden="true"></i> Sign in')
+                    .html('<i class="fa fa-sign-in" aria-hidden="true"></i> Sign in')
                     .css("pointer-events", "auto");
-                showError("Invalid Login Credentials");
+
+                $('#phone-signin-password-input').css('display', 'none');
+                $('#phone-input').css('display', 'block');
+
+                $('#phone-signin-response').fadeIn();
+                $('#phone-signin-response').css('color', 'red');
+                $('#phone-signin-response').html(response);
+                $('#phone-signin-response').fadeOut(3000);
+            }
         },
         error: function(request, error) {
 
             $("#phone-signin-btn")
-                .html('<i class="fa fa-user-plus" aria-hidden="true"></i> Sign in')
+                .html('<i class="fa fa-sign-in" aria-hidden="true"></i> Sign in')
                 .css("pointer-events", "auto");
-            showError("Server error. Try again later.");
+
+            $('#phone-signin-password-input').css('display', 'none');
+            $('#phone-input').css('display', 'block');
+
+            $('#phone-response').fadeIn();
+            $('#phone-response').css('color', 'red');
+            $('#phone-response').html('Server Error');
+            $('#phone-response').fadeOut(5000);
         }
     });
 });
 
+// ----------------------------------- PHONE-TAB4 CLICK FUNCTION I.E. SIGNIN END ----------------------------------------
 
 // ----------------------------------------- PHONE-TAB5 CLICK FUNCTION START --------------------------------------------
 
@@ -449,6 +481,8 @@ $('#phone-email-input button').on('click',function(event) {
     $.ajax({
         url: "../bin/user/signup.php",
         type: "POST",
+        dataType: "json",
+        contentType: "application/json",
         data: JSON.stringify({
             phoneno: phoneno,
             password: password,
@@ -461,14 +495,16 @@ $('#phone-email-input button').on('click',function(event) {
             $('#phone-email-input button')
                 .html('<i class="fas fa-sync-alt"></i> Please Wait')
                 .css("pointer-events", "none");
+            $('#phone').val('');
+            $('#phone-password').val('');
+            $('#phone-name').val('');
+            $('#phone-email').val('');
 
         },
     
         success: function(response) {
 
-            response = $.trim(response);
-
-            if (response == "SIGNUP_SUCCESS") {
+            if (response.code == "SIGNUP_SUCCESS") {
 
                 $('#phone-email-input button').html('<i class="fa fa-circle-o-notch fa-spin"></i>   Signing up');
 
@@ -480,13 +516,27 @@ $('#phone-email-input button').on('click',function(event) {
 
         error: function(request, error) {
 
-            $('#phone-signup-response').html("Server Error");
+            $('#phone-email-input').css('display', 'none');
+            $('#phone-input').css('display', 'block');
+
+            $('#phone-response').fadeIn();
+            $('#phone-response').css('color', 'red');
+            $('#phone-response').html('Server Error');
+            $('#phone-response').fadeOut(5000);
         }
 
     });
 });
 
 // ----------------------------------- PHONE-TAB6 CLICK FUNCTION I.E. SIGNUP END ----------------------------------------
+
+//-----------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------- PHONE JS/JQUERY END ----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------- EMAIL JS/JQUERY START ---------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------
 
 // --------------------------------------- OTP INPUT TEXTBOX ANIMATION START --------------------------------------------
 
@@ -521,4 +571,6 @@ function onFocusEvent2(index) {
     }
 }
 
-// ----------------------------------------- OTP INPUT TEXTBOX ANIMATION END ---------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------- EMAIL JS/JQUERY END ----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------

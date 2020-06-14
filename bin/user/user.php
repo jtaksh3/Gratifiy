@@ -32,6 +32,11 @@ class User
         return $this->phone;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
 
     // Setters
 
@@ -114,6 +119,48 @@ class User
                 return 'SIGNUP_SUCCESS';
         }
         return 'SIGNUP_FAILED';
+    }
+
+    // Function to login the user
+    public function PhoneSignin()
+    {
+        // Sanitize data
+        $this->phone = htmlspecialchars(strip_tags($this->phone));
+        $this->password = htmlspecialchars(strip_tags($this->password));
+
+        /* Get user's unique hash */
+        $query = "SELECT Phone, Email, Password FROM " . $this->login_credentials . " WHERE Phone='" . $this->phone . "'";
+        // Prepare query statement
+        $stmt = $this->conn->prepare($query);
+        // Execute query
+        $stmt->execute();
+        // Fetch a row
+        $result = $stmt->fetch();
+        if ($result == false) {
+            // No rows has been sent by DB
+            return 'CREDENTIALS_INVALID';
+        }
+
+        // Check if password matched or not
+        if (!password_verify($this->password, $result['Password'])) {
+            // Password didn't matched
+            return 'CREDENTIALS_INVALID';
+        }
+
+        $query1 = "SELECT Name FROM " . $this->user_per_details . " WHERE Phone='" . $this->phone . "'";
+        // Prepare query statement
+        $stmt1 = $this->conn->prepare($query1);
+        // Execute query
+        $stmt1->execute();
+        // Fetch a row
+        $result1 = $stmt1->fetch();
+
+        $this->email = $result['Email'];
+        $this->phone = $result['Phone'];
+        $this->name = $result1['Name'];
+
+        // User can login now
+        return 'CREDENTIALS_VALID';
     }
 
 }

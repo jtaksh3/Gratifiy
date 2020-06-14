@@ -45,7 +45,7 @@
                     <label>Enter your Phone</label>
                     <span class="textbox">+91 <input type="tel" id="phone" oninput="validatePhone(this)" placeholder="Phone Number" autocomplete="off" /></span>
                     <input type="button" value="Next" id="phone-input-next-btn">
-                    <p>We won't reveal your Phone Number to anyone else nor use it to send you Spams</p>
+                    <p id="phone-response">We won't reveal your Phone Number to anyone else nor use it to send you Spams</p>
                 </div>
                 <div class="otp-input" id="phone-otp-input" style="display: none;">
                     <label>Enter code Received</label>
@@ -73,11 +73,10 @@
                 <div id="phone-signin-password-input" style="display: none;">
                     <label>Enter a Password</label>
                     <div class="phone-password-input-field">
-                        <input class="input-field-css" type="password" id="phone-signin-password" placeholder="Password" />
+                        <input class="input-field-css" type="password" id="phone-signin-password" oninput="validateSigninPassword(this)" placeholder="Password" />
                         <i id="toggle-phone-signin-password" class="fas fa-eye" onclick="togglePhoneSigninPassword()"></i>
                     </div>
-                    <p style="color: red;" id="phone-signin-response"></p>
-                    <input type="button" id="phone-signin-btn" value="Sign in">
+                    <button id="phone-signin-btn"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in</button>
                 </div>
                 <div id="phone-name-input"  style="display: none;">
                     <label>What's your name?</label>
@@ -90,7 +89,7 @@
                 <div id="phone-email-input" style="display: none;">
                     <label>Enter your Email</label>
                     <input class="input-field-css" type="email" oninput="validateEmail(this)" id="phone-email" placeholder="Email" autocomplete="off" />
-                    <button>Continue</button>
+                    <button><i class="fa fa-user-plus" aria-hidden="true"></i> Continue</button>
                     <p style="color: red;" id="phone-signup-response"></p>
                     <p>We won't reveal your Email to anyone else nor use it to send you Spams</p>
                 </div>

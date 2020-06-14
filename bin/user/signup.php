@@ -34,6 +34,6 @@ $body = json_decode($body, true);
         $response = $user->signup();
 
         if ($response == 'SIGNUP_SUCCESS')
-            exit($response);
+            exit(json_encode(array("code" => $response)));
     }
 ?>
