@@ -221,6 +221,7 @@ $('#phone-input input[type="button"]').on('click',function() {
 	$.ajax({
         url: "../bin/user/phone-input.php",
         type: "POST",
+        dataType: "json",
         data: {
             phoneno: phoneno
         },
@@ -234,13 +235,11 @@ $('#phone-input input[type="button"]').on('click',function() {
     
         success: function(response) {
 
-            response = $.trim(response);
-
             $('.back-btn').css('visibility', 'hidden');
             $('.close-btn').css('visibility', 'hidden');
             $('.phone-value').text(phoneno);
 
-            if (response == 'Already_Registered') {
+            if (response.code == 'ALREADY_REGISTERED') {
 
                 $('#phone-input').css('display', 'none');
 
@@ -257,7 +256,7 @@ $('#phone-input input[type="button"]').on('click',function() {
 
             }
 
-            else {
+            else if(response.code == 'OTP_SENT_SUCCESSFULLY'){
 
 	            $('#phone-input').css('display', 'none');
 
@@ -269,6 +268,20 @@ $('#phone-input input[type="button"]').on('click',function() {
                     $('#logo').css('display', 'block');
                     $('#phone-otp-input').css('display', 'block');
                 }, 1000);
+            }
+
+            else {
+
+                $('#phone').val('');
+
+                $('.back-btn').css('visibility', 'visible');
+                $('.close-btn').css('visibility', 'visible');
+                
+                $('#phone-response').fadeIn();
+                $('#phone-response').css('color', 'red');
+                $('#phone-response').html('Server Error. Please try another option to Continue');
+                $('#phone-response').fadeOut(7000);
+
             }
         }
 
@@ -299,6 +312,7 @@ function onKeyUpEvent1(index, event) {
             $.ajax({
                 url: "../bin/user/phone-input.php",
                 type: "POST",
+                dataType: "json",
                 data: {
                     phone1: phone1,
                     phone2: phone2,
@@ -315,9 +329,17 @@ function onKeyUpEvent1(index, event) {
     
                 success: function(response) {
 
-                    response = $.trim(response);
+                    if(response.code == 'TIMEOUT') {
 
-                    if (response == 'Verification Success') {
+                        $('#phone-otp-response').fadeIn();
+                        $('#phone-otp-response').css('color', 'red');
+                        $('#phone-otp-response').html('Verification Request Timeout.');
+                        $('#phone-otp-response').fadeOut(5000);
+
+                    }
+
+                    else if (response.code == 'OTP_MATCHED_SUCCESSFUL') {
+
                         $('#phone-otp-input').css('display', 'none');
 
                         $('#logo').css('display', 'none');
@@ -332,8 +354,9 @@ function onKeyUpEvent1(index, event) {
 
                     else {
                         $('#phone-otp-response').fadeIn();
-                        $('#phone-otp-response').html(response);
-                        $('#phone-otp-response').fadeOut(3000);
+                        $('#phone-otp-response').css('color', 'red');
+                        $('#phone-otp-response').html('You have entered a Wrong OTP.');
+                        $('#phone-otp-response').fadeOut(5000);
                     }
                 }
 
@@ -354,6 +377,51 @@ function onFocusEvent1(index) {
         }
     }
 }
+
+$('#phone-otp-resend-btn').on('click',function() {
+
+    $.ajax({
+        url: "../bin/user/phone-input.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+            resend: true
+        },
+
+        beforeSend: function() {
+            $('#phone-otp-resend-btn').css('display', 'none');
+        },
+
+        success: function() {
+
+            if (response.code == 'OTP_SENT_SUCCESSFULLY') {
+
+                $('#phone-otp-response').fadeIn();
+                $('#phone-otp-response').css('color', '#00a591');
+                $('#phone-otp-response').html('OTP sent Successfully.');
+                $('#phone-otp-response').fadeOut(5000);
+
+            }
+
+            else {
+
+                $('#phone').val('');
+
+                $('#phone-otp-input').css('display', 'none');
+                $('#phone-input').css('display', 'block');
+
+                $('.back-btn').css('visibility', 'visible');
+                $('.close-btn').css('visibility', 'visible');
+                
+                $('#phone-response').fadeIn();
+                $('#phone-response').css('color', 'red');
+                $('#phone-response').html('Server Error. Please try another option to Continue');
+                $('#phone-response').fadeOut(7000);
+
+            }
+
+        }
+
 
 // --------------------------------------------- PHONE-TAB2 FUNCTION END ------------------------------------------------
 
@@ -405,8 +473,6 @@ $("#phone-signin-btn").on("click", function(event) {
         },
         success: function(response) {
 
-            // response = $.trim(response);
-
             if (response.code == "SIGNIN_SUCCESS") {
                 //User credentials has been successfully validated
                 $("#phone-signin-btn")
@@ -425,7 +491,7 @@ $("#phone-signin-btn").on("click", function(event) {
 
                 $('#phone-signin-response').fadeIn();
                 $('#phone-signin-response').css('color', 'red');
-                $('#phone-signin-response').html(response);
+                $('#phone-signin-response').html('Invalid Credentials. Please try Again');
                 $('#phone-signin-response').fadeOut(3000);
             }
         },
@@ -512,6 +578,18 @@ $('#phone-email-input button').on('click',function(event) {
 
             }
 
+            else {
+
+                $('#phone-email-input').css('display', 'none');
+                $('#phone-input').css('display', 'block');
+
+                $('#phone-response').fadeIn();
+                $('#phone-response').css('color', 'red');
+                $('#phone-response').html('Server Error');
+                $('#phone-response').fadeOut(7000);
+
+            }
+
         },
 
         error: function(request, error) {
@@ -522,7 +600,7 @@ $('#phone-email-input button').on('click',function(event) {
             $('#phone-response').fadeIn();
             $('#phone-response').css('color', 'red');
             $('#phone-response').html('Server Error');
-            $('#phone-response').fadeOut(5000);
+            $('#phone-response').fadeOut(7000);
         }
 
     });

@@ -1,63 +1,47 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Project/bin/config/database.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Project/bin/user/user.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Gratifiy/bin/config/database.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Gratifiy/bin/user/user.php';
 
 if (isset($_POST['phoneno'])) {
 
-	$phone = $_POST['phoneno'];
+	  $phone = $_POST['phoneno'];
 
-	$db = new Database();
+	  $db = new Database();
         
     $userDB = $db->getUserDBConnection();
 
     $user = new User($userDB);
 
-    $response = $user->setPhone($phone);
+    $user->setPhone($phone);
 
-    $response = $user->doesPhoneAlreadyExist();
+    if($user->doesPhoneAlreadyExist())
+        exit(json_encode(array("code" => 'ALREADY_REGISTERED')));
 
-    if($response)
-    	exit('Already_Registered');
-
-    session_start();
-
-    $otp = rand(1000, 9999);
-
-    $_SESSION['session_otp'] = $otp;
+    if($user->sendPhoneOTP($phone))
+        exit(json_encode(array("code" => 'OTP_SENT_SUCCESSFULLY')));
     
-    $username="jtaksh3";
-
-    $password="Aksh1234*";
-
-    $message="Your OTP for the Verification is " . $otp;
-
-    $sender=" TestID";
-
-    $url="login.bulksmsgateway.in/sendmessage.php?user=".urlencode($username)."&password=".urlencode($password)."&mobile=".urlencode($phone)."&sender=".urlencode($sender)."&message=".urlencode($message)."&type=".urlencode('3');
-
-    $ch = curl_init($url);
-
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-    $curl_scraped_page = curl_exec($ch);
-
-    curl_close($ch);
-
-    exit('OTP_SUCCESS');
+    exit(json_encode(array("code" => 'OTP_SENT_FAILED')));
 
 }
 
-elseif (isset($_POST['phone1']) && isset($_POST['phone2']) && isset($_POST['phone3']) && isset($_POST['phone4'])) {
+if (isset($_POST['phone1']) && isset($_POST['phone2']) && isset($_POST['phone3']) && isset($_POST['phone4'])) {
 
-    session_start();
+    $db = new Database();
+        
+    $userDB = $db->getUserDBConnection();
+
+    $user = new User($userDB);
 
     $otp = ($_POST['phone1'] * 1000) + ($_POST['phone2'] * 100) + ($_POST['phone3'] * 10) + $_POST['phone4'];
 
-    if($otp == $_SESSION['session_otp'])
-        exit('Verification Success');
-    else
-        exit('You have entered a Wrong OTP');
+    if($user->isTimeout())
+        exit(json_encode(array("code" => 'TIMEOUT')));
+
+    if($user->matchOTP($otp))
+        exit(json_encode(array("code" => 'OTP_MATCHED_SUCCESSFUL')));
+
+    exit(json_encode(array("code" => 'OTP_MATCH_FAILED')));
 }
 
 ?>

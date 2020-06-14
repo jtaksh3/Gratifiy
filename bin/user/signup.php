@@ -30,10 +30,10 @@ $body = json_decode($body, true);
         $user->setPassword($password);
         $user->setCreated(date('Y-m-d H:i:s'));
 
-        
-        $response = $user->signup();
+        if ($user->signup())
+            exit(json_encode(array("code" => "SIGNUP_SUCCESS")));
 
-        if ($response == 'SIGNUP_SUCCESS')
-            exit(json_encode(array("code" => $response)));
+        exit(json_encode(array("code" => "SIGNUP_FAILED")));
+
     }
 ?>

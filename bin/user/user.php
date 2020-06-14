@@ -64,6 +64,65 @@ class User
     {
         $this->created = $created;
     }
+    
+    public function sendPhoneOTP($phone)
+    {
+        session_start();
+
+        $otp = rand(1000, 9999);
+
+        $_SESSION['otp'] = $otp;
+
+        $_SESSION['time'] = time();
+    
+        $username="jtaksh3";
+
+        $password="Aksh1234*";
+
+        $message="Your OTP for the Verification is " . $otp . " which is valid for 3 minutes";
+
+        $sender=" TestID";
+
+        $url="login.bulksmsgateway.in/sendmessage.php?user=".urlencode($username)."&password=".urlencode($password)."&mobile=".urlencode($phone)."&sender=".urlencode($sender)."&message=".urlencode($message)."&type=".urlencode('3');
+
+        $ch = curl_init($url);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $output = json_decode(curl_exec($ch));
+
+        curl_close($ch);
+
+        if($output->status == 'Success') {
+                return true;
+        }
+
+        return false;
+
+    }
+
+    public function isTimeout() 
+    {
+        session_start();
+
+        if (($_SESSION['otp'] - time()) > 180 ) {
+            return true;
+        }
+        return false;
+    }
+
+    public function matchOTP($otp) 
+    {
+
+        session_start();
+
+        if($_SESSION['otp'] == $otp)
+            return true;
+
+        return false;
+
+    }
+
 
     // Function to check if the user already exist in db or not
     public function doesPhoneAlreadyExist()
@@ -114,15 +173,15 @@ class User
             $per_stmt->bindParam(":name", $this->name);
 
             if ($per_stmt->execute() == false) 
-                return 'SIGNUP_FAILED';
+                return false;
             else 
-                return 'SIGNUP_SUCCESS';
+                return true;
         }
-        return 'SIGNUP_FAILED';
+        return false;
     }
 
     // Function to login the user
-    public function PhoneSignin()
+    public function phoneSignin()
     {
         // Sanitize data
         $this->phone = htmlspecialchars(strip_tags($this->phone));
@@ -138,13 +197,13 @@ class User
         $result = $stmt->fetch();
         if ($result == false) {
             // No rows has been sent by DB
-            return 'CREDENTIALS_INVALID';
+            return false;
         }
 
         // Check if password matched or not
         if (!password_verify($this->password, $result['Password'])) {
             // Password didn't matched
-            return 'CREDENTIALS_INVALID';
+            return false;
         }
 
         $query1 = "SELECT Name FROM " . $this->user_per_details . " WHERE Phone='" . $this->phone . "'";
@@ -160,7 +219,7 @@ class User
         $this->name = $result1['Name'];
 
         // User can login now
-        return 'CREDENTIALS_VALID';
+        return true;
     }
 
 }

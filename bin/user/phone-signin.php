@@ -20,11 +20,8 @@
 
         $user->setPhone($body['phoneno']);
         $user->setPassword($body['password']);
-
-        
-        $response = $user->PhoneSignin();
             
-        if($response == 'CREDENTIALS_VALID'){
+        if($user->phoneSignin()){
             
             session_start();
             
@@ -34,10 +31,9 @@
             
             exit(json_encode(array("code" => 'SIGNIN_SUCCESS')));
 
-        } else if($response == 'CREDENTIALS_INVALID'){
-            
-            exit(json_encode(array("code" => 'Invalid Credentials')));
-
         }
+            
+        exit(json_encode(array("code" => 'SIGNIN_FAILED')));
+
     }
 ?>
