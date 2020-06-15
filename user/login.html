@@ -12,7 +12,6 @@
 
     <body>
         <div class="container" id="login-options-container">
-            <button title="Close" class="close-btn" id="login-options-container-close-btn">&times;</button>
             <div class="content">
                 <div class="inner-content">
                     <i class="fas fa-guitar fw fa-5x"></i>
@@ -35,11 +34,12 @@
             </div>
             <p>We won't share your Personal Details with Anyone</p>
         </div>
+        <div class="container" id="loader-container" style="padding: 170px 0px; animation: none; display: none;">
+            <img src="./assets/img/load.gif" style="margin: auto; display: block;">
+        </div>
         <div class="container" id="phone-container" style="display: none;">
             <button title="Back" class="back-btn">&#8592;</button>
-            <button title="Close" class="close-btn">&times;</button>
             <img id="logo" src="./assets/img/logo.png">
-            <img id="loader" src="./assets/img/load.gif" style="margin: 200px auto; display: none;">
             <div class="form">
                 <div class="phone-input" id="phone-input">
                     <label>Enter your Phone</label>
@@ -97,8 +97,7 @@
         </div>
         <div class="container" id="email-container" style="display: none;">
             <button title="Back" class="back-btn">&#8592;</button>
-            <button title="Close" class="close-btn">&times;</button>
-            <img src="./assets/img/logo.png">
+            <img id="logo" src="./assets/img/logo.png">
             <div class="form">
                 <div class="email-input" id="email-input">
                     <label>Enter your Email</label>

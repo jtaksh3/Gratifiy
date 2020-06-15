@@ -1,7 +1,7 @@
 <?php
 $loggedIn = false;
 session_start();
-if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
+if (isset($_SESSION['email']) && isset($_SESSION['phone'])  && isset($_SESSION['name'])) {
     $loggedIn = true;
 }
 
@@ -25,7 +25,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
         <div class="navBar">
             <div class="header">
                 <div class="logo">
-                    <a href="#"><img src="./assets/img/logo.png"></a>
+                    <a href=""><img src="./assets/img/logo.png"></a>
                 </div>
                 <div class="navigation">
                     <ul>
@@ -41,14 +41,23 @@ if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
                         <li title="Contact us"><a href="contact/contact.html" class="contact">Contact</a></li>
                         <li title="Compare"><a href="#"><img src="./assets/img/Compare.svg"></a></li>
                         <?php 
-                        if (!$loggedIn) echo '<li title="Login"><a href="./user/login.php"><img src="./assets/img/Login.svg"></a></li>';
+                        if (!$loggedIn) echo '<li  id="login-modal-btn" title="Login"><a href=""><img src="./assets/img/Login.svg"></a></li>';
                         else echo '<li title="Dashboard"><a href="./dashboard/dashboard.php"><img src="./assets/img/profile.png"></a></li>';
                         ?>
                         <li title="Submit Advertisement"><a href="#"><img src="./assets/img/Submit.svg">Submit Ad</a></li>
+                        <button id="response"></button>
                     </ul>
                 </div>
             </div>
         </div>
+        
+        <div id="login-modal" class="login-modal">
+            <div class="login-modal-content">
+                <iframe style='border: none;' width='100%' height="100%" src="./user/login.html">
+                </iframe>
+            </div>
+        </div>
+
         <div class="menuBar">
             <div class="toogle"></div>
             <div class="menuBar-nav hide">

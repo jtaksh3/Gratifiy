@@ -41,12 +41,19 @@ if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
                         <li title="Contact us"><a href="../contact/contact.html" class="contact">Contact</a></li>
                         <li title="Compare"><a href="#"><img src="../assets/img/Compare.svg"></a></li>
                         <?php 
-                        if (!$loggedIn) echo '<li title="Login"><a href="../user/login.php"><img src="../assets/img/Login.svg"></a></li>';
+                        if (!$loggedIn) echo '<li title="Login" id="login-modal-btn"><a href=""><img src="../assets/img/Login.svg"></a></li>';
                         else echo '<li title="Dashboard"><a href="../dashboard/dashboard.php"><img src="../assets/img/profile.png"></a></li>';
                         ?>
                         <li title="Submit Advertisement"><a href="#"><img src="../assets/img/Submit.svg">Submit Ad</a></li>
                     </ul>
                 </div>
+            </div>
+        </div>
+
+        <div id="login-modal" class="login-modal">
+            <div class="login-modal-content">
+                <iframe style='border: none;' width='100%' height="100%" src="../user/login.html">
+                </iframe>
             </div>
         </div>
 

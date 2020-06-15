@@ -44,3 +44,18 @@ for (i = 0; i < dropdown.length; i++) {
   }
   });
 }
+
+$('#login-modal-btn').on('click',function(event) {
+
+  event.preventDefault();
+
+  $('#login-modal').css('display', 'block');
+
+});
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  let loginModal = document.getElementById('login-modal')
+  if (event.target == loginModal)
+      loginModal.style.display = "none";
+}
