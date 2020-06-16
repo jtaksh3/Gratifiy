@@ -51,53 +51,50 @@ $('#email-btn').on('click',function() {
 
 // --------------------------------------- LOGIN OPTIONS BUTTON FUNCTION END --------------------------------------------
 
-//-----------------------------------------------------------------------------------------------------------------------
-//--------------------------------------------- PHONE JS/JQUERY START ---------------------------------------------------
-//-----------------------------------------------------------------------------------------------------------------------
-
-// -------------------------------------- PHONE INPUT TEXTBOX ANIMATION START -------------------------------------------
-
-$("#phone").focus(function(){
-
-    $(".textbox").css("outline", "2px solid #00a591");
-
-});
-
-$("#phone").blur(function(){
-
-    $(".textbox").css("outline", "none");
-
-});
-
-// --------------------------------------- PHONE INPUT TEXTBOX ANIMATION END --------------------------------------------
-
-// ---------------------------------------- PHONE VALIDATION FUNCTION START ---------------------------------------------
+// ------------------------------------------- VALIDATION FUNCTION START ------------------------------------------------
 
 function validatePhone(input) {
 
     let phone_constraint = /^[6-9]\d{9}$/;
 
-    if(phone_constraint.test(input.value))
-        $('#phone-input input[type="button"]').css('pointer-events', 'auto');
-    else
-        $('#phone-input input[type="button"]').css('pointer-events', 'none');
+    if(phone_constraint.test(input.value)) {
+
+        $('#email-input button').css('pointer-events', 'auto');
+        $('#phone-input button').css('pointer-events', 'auto');
+
+        }
+    else {
+
+        $('#phone-input button').css('pointer-events', 'none');
+        $('#email-input button').css('pointer-events', 'none');
+
+    }
 
 }
 
 function validateSigninPassword(input) {
 
-    if (input.value.trim().length)
-        $('#phone-signin-btn').css('pointer-events', 'auto');
-    else
-        $('#phone-signin-btn').css('pointer-events', 'none');
+    if (input.value.trim().length) {
+            $('#phone-signin-btn').css('pointer-events', 'auto');
+            $('#email-signin-btn').css('pointer-events', 'auto');
+        }
+    else {
+            $('#phone-signin-btn').css('pointer-events', 'none');
+            $('#email-signin-btn').css('pointer-events', 'none');
+        }
 }
 
 function matchPassword(input) {
 
     if(input.value == $('#phone-password').val())
-        $('#phone-password-btn').css('pointer-events', 'auto');
+        $('#phone-password-input button').css('pointer-events', 'auto');
     else
-        $('#phone-password-btn').css('pointer-events', 'none');
+        $('#phone-password-input button').css('pointer-events', 'none');
+
+    if(input.value == $('#email-password').val())
+        $('#email-password-input button').css('pointer-events', 'auto');
+    else
+        $('#email-password-input button').css('pointer-events', 'none');
 
 }
 
@@ -164,6 +161,69 @@ function togglePhoneSigninPassword() {
 
 }
 
+function toggleEmailPassword() {
+
+  var x = document.getElementById("email-password");
+  var y = document.getElementById("toggle-email-password");
+
+  if (x.type === "password") {
+
+    y.classList.remove("fa-eye");
+    y.classList.add("fa-eye-slash");
+    x.type = "text";
+
+  } else {
+
+    y.classList.remove("fa-eye-slash");
+    y.classList.add("fa-eye");
+    x.type = "password";
+
+  }
+
+}
+
+function toggleEmailCPassword() {
+
+  var x = document.getElementById("email-cpassword");
+  var y = document.getElementById("toggle-email-cpassword");
+
+  if (x.type === "password") {
+
+    y.classList.remove("fa-eye");
+    y.classList.add("fa-eye-slash");
+    x.type = "text";
+
+  } else {
+
+    y.classList.remove("fa-eye-slash");
+    y.classList.add("fa-eye");
+    x.type = "password";
+
+  }
+
+}
+
+function toggleEmailSigninPassword() {
+
+  var x = document.getElementById("email-signin-password");
+  var y = document.getElementById("toggle-email-signin-password");
+
+  if (x.type === "password") {
+
+    y.classList.remove("fa-eye");
+    y.classList.add("fa-eye-slash");
+    x.type = "text";
+
+  } else {
+
+    y.classList.remove("fa-eye-slash");
+    y.classList.add("fa-eye");
+    x.type = "password";
+
+  }
+
+}
+
 function validateName(input) {
 
     if (input.value.trim().length) {
@@ -176,22 +236,32 @@ function validateName(input) {
 
         input.value = str.join(" ");
 
-        $('#phone-name-input input[type="button"]').css('pointer-events', 'auto');
+        $('#phone-name-input button').css('pointer-events', 'auto');
+        $('#email-name-input button').css('pointer-events', 'auto');
 
     }
 
-    else
-        $('#phone-name-input input[type="button"]').css('pointer-events', 'none');
+    else {
+
+            $('#phone-name-input button').css('pointer-events', 'none');
+            $('#email-name-input button').css('pointer-events', 'none');
+
+        }
 
 }
 
 function validateEmail(input) {
 
     let email_constraint = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if(email_constraint.test(input.value))
+
+    if(email_constraint.test(input.value)) {
         $('#phone-email-input button').css('pointer-events', 'auto');
-    else
+        $('#email-input button').css('pointer-events', 'auto');
+    }
+    else {
         $('#phone-email-input button').css('pointer-events', 'none');
+        $('#email-input button').css('pointer-events', 'none');
+    }
 
 }
 
@@ -202,11 +272,38 @@ function changePhone() {
 
 }
 
-// ------------------------------------------ PHONE VALIDATION FUNCTION END ---------------------------------------------
+function changeEmail() {
+
+    $('#email-otp-input').css('display', 'none');
+    $('#email-input').css('display', 'block');
+
+}
+
+// ------------------------------------------- VALIDATION FUNCTION END --------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------- PHONE JS/JQUERY START ---------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------
+
+// -------------------------------------- PHONE INPUT TEXTBOX ANIMATION START -------------------------------------------
+
+$("#phone").focus(function(){
+
+    $(".textbox").css("outline", "2px solid #00a591");
+
+});
+
+$("#phone").blur(function(){
+
+    $(".textbox").css("outline", "none");
+
+});
+
+// --------------------------------------- PHONE INPUT TEXTBOX ANIMATION END --------------------------------------------
 
 // ----------------------------------------- PHONE-TAB1 CLICK FUNCTION START --------------------------------------------
 
-$('#phone-input input[type="button"]').on('click',function() {
+$('#phone-input button').on('click',function() {
 
 	let phoneno = $('#phone').val();
 
@@ -220,7 +317,7 @@ $('#phone-input input[type="button"]').on('click',function() {
 
         beforeSend: function() {
     
-            $('#phone-input input[type="button"]')
+            $('#phone-input button')
                 .html('<i class="fas fa-sync-alt"></i> Please Wait')
                 .css("pointer-events", "none");
         },
@@ -415,7 +512,7 @@ $('#phone-otp-resend-btn').on('click',function() {
 
 // ----------------------------------------- PHONE-TAB3 CLICK FUNCTION START --------------------------------------------
 
-$('#phone-password-btn').on('click',function() {
+$('#phone-password-input button').on('click',function() {
 
     $('#phone-password-input').css('display', 'none');
     $('#loader-container').css('display', 'block');
@@ -503,7 +600,7 @@ $("#phone-signin-btn").on("click", function(event) {
 
 // ----------------------------------------- PHONE-TAB5 CLICK FUNCTION START --------------------------------------------
 
-$('#phone-name-input input[type="button"]').on('click',function() {
+$('#phone-name-input button').on('click',function() {
 
     $('#phone-name-input').css('display', 'none');
     $('#loader-container').css('display', 'block');
@@ -602,9 +699,95 @@ $('#phone-email-input button').on('click',function(event) {
 //--------------------------------------------- EMAIL JS/JQUERY START ---------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
 
-// --------------------------------------- OTP INPUT TEXTBOX ANIMATION START --------------------------------------------
+// -------------------------------------- EMAIL INPUT TEXTBOX ANIMATION START -------------------------------------------
 
+$("#email-phone").focus(function(){
 
+    $(".textbox").css("outline", "2px solid #00a591");
+
+});
+
+$("#email-phone").blur(function(){
+
+    $(".textbox").css("outline", "none");
+
+});
+
+// --------------------------------------- EMAIL INPUT TEXTBOX ANIMATION END --------------------------------------------
+
+// ----------------------------------------- EMAIL-TAB1 CLICK FUNCTION START --------------------------------------------
+
+$('#email-input button').on('click',function() {
+
+    let email = $('#email').val();
+
+    $.ajax({
+        url: "../bin/user/email-input.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+            email: email
+        },
+
+        beforeSend: function() {
+    
+            $('#email-input button')
+                .html('<i class="fas fa-sync-alt"></i> Please Wait')
+                .css("pointer-events", "none");
+        },
+    
+        success: function(response) {
+
+            $('.back-btn').css('visibility', 'hidden');
+            $('.email-value').text(email);
+
+            if (response.code == 'ALREADY_REGISTERED') {
+
+                $('#email-input').css('display', 'none');
+                $('#loader-container').css('display', 'block');
+
+                setTimeout(function() {
+
+                    $('#loader-container').css('display', 'none');
+                    $('#email-signin-password-input').css('display', 'block');
+
+                }, 1000);
+
+            }
+
+            else if(response.code == 'OTP_SENT_SUCCESSFULLY'){
+
+                $('#email-input').css('display', 'none');
+                $('#loader-container').css('display', 'block');
+
+                setTimeout(function() {
+
+                    $('#loader-container').css('display', 'none');
+                    $('#email-otp-input').css('display', 'block');
+
+                }, 1000);
+            }
+
+            else {
+
+                $('#email').val('');
+
+                $('.back-btn').css('visibility', 'visible');
+                
+                $('#email-response').fadeIn();
+                $('#email-response').css('color', 'red');
+                $('#email-response').html('Server Error. Please try another option to Continue');
+                $('#email-response').fadeOut(7000);
+
+            }
+        }
+
+    });
+});
+
+// ------------------------------------------ EMAIL-TAB1 CLICK FUNCTION END ---------------------------------------------
+
+// -------------------------------------------- EMAIL-TAB2 FUNCTION START -----------------------------------------------
 
 function getCodeBoxElement2(index) {
     return document.getElementById('email-otp-input-' + index);
@@ -617,13 +800,68 @@ function onKeyUpEvent2(index, event) {
         } else {
             getCodeBoxElement2(index).blur();
             // Submit code
-            $('#email-otp-container').css('display', 'none');
-	        $('#password-container').css('display', 'block');
+
+            let email1 = $('#email-otp-input-1').val();
+            let email2 = $('#email-otp-input-2').val();
+            let email3 = $('#email-otp-input-3').val();
+            let email4 = $('#email-otp-input-4').val();
+
+            $.ajax({
+                url: "../bin/user/email-input.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    email1: email1,
+                    email2: email2,
+                    email3: email3,
+                    email4: email4
+                },
+
+                beforeSend: function() {
+                    $('#email-otp-input-1').val("");
+                    $('#email-otp-input-2').val("");
+                    $('#email-otp-input-3').val("");
+                    $('#email-otp-input-4').val("");
+                },
+    
+                success: function(response) {
+
+                    if(response.code == 'TIMEOUT') {
+
+                        $('#email-otp-response').fadeIn();
+                        $('#email-otp-response').css('color', 'red');
+                        $('#email-otp-response').html('Verification Request Timeout.');
+                        $('#email-otp-response').fadeOut(5000);
+
+                    }
+
+                    else if (response.code == 'OTP_MATCHED_SUCCESSFUL') {
+
+                        $('#email-otp-input').css('display', 'none');
+                        $('#loader-container').css('display', 'block');
+
+                        setTimeout(function() {
+
+                            $('#loader-container').css('display', 'none');
+                            $('#email-password-input').css('display', 'block');
+
+                        }, 1000);
+                    } 
+
+                    else {
+                        $('#email-otp-response').fadeIn();
+                        $('#email-otp-response').css('color', 'red');
+                        $('#email-otp-response').html('You have entered a Wrong OTP.');
+                        $('#email-otp-response').fadeOut(5000);
+                    }
+                }
+
+            });
+
         }
     }
-    if (eventCode === 8 && index !== 1) {
-        getCodeBoxElement21(index - 1).focus();
-    }
+    if (eventCode === 8 && index !== 1)
+        getCodeBoxElement2(index - 1).focus();
 }
 function onFocusEvent2(index) {
     for (item = 1; item < index; item++) {
@@ -635,6 +873,237 @@ function onFocusEvent2(index) {
     }
 }
 
+$('#email-otp-resend-btn').on('click',function() {
+
+    $.ajax({
+        url: "../bin/user/email-input.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+            resend: true
+        },
+
+        beforeSend: function() {
+            $('#email-otp-resend-btn').css('display', 'none');
+        },
+
+        success: function() {
+
+            if (response.code == 'OTP_SENT_SUCCESSFULLY') {
+
+                $('#email-otp-response').fadeIn();
+                $('#email-otp-response').css('color', '#00a591');
+                $('#email-otp-response').html('OTP sent Successfully.');
+                $('#email-otp-response').fadeOut(5000);
+
+            }
+
+            else {
+
+                $('#email').val('');
+
+                $('#email-otp-input').css('display', 'none');
+                $('#email-input').css('display', 'block');
+
+                $('.back-btn').css('visibility', 'visible');
+                
+                $('#email-response').fadeIn();
+                $('#email-response').css('color', 'red');
+                $('#email-response').html('Server Error. Please try another option to Continue');
+                $('#email-response').fadeOut(7000);
+
+            }
+
+        }
+
+    });
+
+});
+
+
+// --------------------------------------------- EMAIL-TAB2 FUNCTION END ------------------------------------------------
+
+// ----------------------------------------- EMAIL-TAB3 CLICK FUNCTION START --------------------------------------------
+
+$('#email-password-input button').on('click',function() {
+
+    $('#email-password-input').css('display', 'none');
+    $('#loader-container').css('display', 'block');
+
+    setTimeout(function() {
+
+        $('#loader-container').css('display', 'none');
+        $('#email-name-input').css('display', 'block');
+    }, 1000);
+
+});
+
+// ------------------------------------------ EMAIL-TAB3 CLICK FUNCTION END ---------------------------------------------
+
+// ----------------------------------- EMAIL-TAB4 CLICK FUNCTION I.E. SIGNIN START --------------------------------------
+
+$("#email-signin-btn").on("click", function(event) {
+
+    event.preventDefault();
+
+    let emailno = $('#email').val();
+    let password = $('#email-signin-password').val();
+
+    //AJAX request for signin form
+    $.ajax({
+        url: "../bin/user/email-signin.php",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({
+            emailno: emailno,
+            password: password
+        }),
+        beforeSend: function() {
+
+            $("#email-signin-btn")
+                .html('<i class="fa fa-exchange" aria-hidden="true"></i> Please Wait')
+                .css("pointer-events", "none");
+            $('#email').val('');
+            $('#email-signin-password').val('');
+        },
+        success: function(response) {
+
+            if (response.code == "SIGNIN_SUCCESS") {
+                //User credentials has been successfully validated
+                $("#email-signin-btn")
+                    .html('<i class="fa fa-spinner fa-spin"></i>   Signing in')
+                    .css("pointer-events", "auto");
+                window.parent.location.href = "../index.php";
+
+            } else {
+                //User has provided invalid credentials or is not registered
+                $("#email-signin-btn")
+                    .html('<i class="fa fa-sign-in" aria-hidden="true"></i> Sign in')
+                    .css("pointer-events", "auto");
+
+                $('#email-signin-password-input').css('display', 'none');
+                $('.back-btn').css('visibility', 'visible');
+                $('#email-input').css('display', 'block');
+
+                $('#email-response').fadeIn();
+                $('#email-response').css('color', 'red');
+                $('#email-response').html('Invalid Credentials. Please try Again');
+                $('#email-response').fadeOut(3000);
+            }
+        },
+        error: function(request, error) {
+
+            $("#email-signin-btn")
+                .html('<i class="fa fa-sign-in" aria-hidden="true"></i> Sign in')
+                .css("pointer-events", "auto");
+
+            $('#email-signin-password-input').css('display', 'none');
+            $('#email-input').css('display', 'block');
+
+            $('#email-response').fadeIn();
+            $('#email-response').css('color', 'red');
+            $('#email-response').html('Server Error');
+            $('#email-response').fadeOut(5000);
+        }
+    });
+});
+
+// ----------------------------------- EMAIL-TAB4 CLICK FUNCTION I.E. SIGNIN END ----------------------------------------
+
+// ----------------------------------------- EMAIL-TAB5 CLICK FUNCTION START --------------------------------------------
+
+$('#email-name-input button').on('click',function() {
+
+    $('#email-name-input').css('display', 'none');
+    $('#loader-container').css('display', 'block');
+
+    setTimeout(function() {
+
+        $('#loader-container').css('display', 'none');
+        $('#email-email-input').css('display', 'block');
+        
+    }, 1000);
+
+});
+
+// ------------------------------------------ EMAIL-TAB5 CLICK FUNCTION END ---------------------------------------------
+
+// ----------------------------------- EMAIL-TAB6 CLICK FUNCTION I.E. SIGNUP START --------------------------------------
+
+$('#email-phone-input button').on('click',function(event) {
+
+    event.preventDefault();
+
+    let email = $('#email').val();
+    let password = $('#email-password').val();
+    let name = $('#email-name').val();
+    let phoneno = $('#email-phone').val();
+
+    $.ajax({
+        url: "../bin/user/signup.php",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({
+            phoneno: phoneno,
+            password: password,
+            name: name,
+            email: email
+        }),
+
+        beforeSend: function() {
+    
+            $('#email-phone-input button')
+                .html('<i class="fas fa-sync-alt"></i> Please Wait')
+                .css("pointer-events", "none");
+            $('#email').val('');
+            $('#email-password').val('');
+            $('#email-name').val('');
+            $('#email-phone').val('');
+
+        },
+    
+        success: function(response) {
+
+            if (response.code == "SIGNUP_SUCCESS") {
+
+                $('#email-phone-input button').html('<i class="fa fa-circle-o-notch fa-spin"></i>   Signing up');
+
+                window.parent.location.href = "../index.php";
+
+            }
+
+            else {
+
+                $('#email-phone-input').css('display', 'none');
+                $('#email-input').css('display', 'block');
+
+                $('#email-response').fadeIn();
+                $('#email-response').css('color', 'red');
+                $('#email-response').html('Server Error');
+                $('#email-response').fadeOut(7000);
+
+            }
+
+        },
+
+        error: function(request, error) {
+
+            $('#email-phone-input').css('display', 'none');
+            $('#email-input').css('display', 'block');
+
+            $('#email-response').fadeIn();
+            $('#email-response').css('color', 'red');
+            $('#email-response').html('Server Error');
+            $('#email-response').fadeOut(7000);
+        }
+
+    });
+});
+
+// ----------------------------------- EMAIL-TAB6 CLICK FUNCTION I.E. SIGNUP END ----------------------------------------
+
 //-----------------------------------------------------------------------------------------------------------------------
-//---------------------------------------------- EMAIL JS/JQUERY END ----------------------------------------------------
+//--------------------------------------------- EMAIL JS/JQUERY START ---------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------

@@ -1,27 +1,30 @@
 <?php
 
+// INCLUDE DEPENDENCIES
 include_once $_SERVER['DOCUMENT_ROOT'] . '/Gratifiy/bin/config/database.php';
 
 class User
 {
     private $conn;
 
+    // DATABASE TABLE NAMES
     private $login_credentials = "Login_Credentials";
     private $user_per_details = "User_Personal_Details";
-
+    
+    // TABLE FIELDS
     private $email;
     private $name;
     private $password;
     private $phone;
     private $created;
     
+    // CONSTRUCTOR
     function __construct($db)
     {
         $this->conn = $db;
     }
 
-    //Getters
-
+    // GETTERS
     public function getEmail()
     {
         return $this->email;
@@ -37,9 +40,7 @@ class User
         return $this->name;
     }
 
-
-    // Setters
-
+    // SETTERS
     public function setPhone($phone)
     {
         $this->phone = $phone;
@@ -64,7 +65,41 @@ class User
     {
         $this->created = $created;
     }
+
+
+    // FUNCTION TO CHECK IF PHONE IS ALREADY EXIST
+    public function doesPhoneAlreadyExist()
+    {
+        $query = "SELECT Phone FROM " . $this->login_credentials . " WHERE Phone='" . $this->phone . "'";
+        // Prepare query statement
+        $stmt = $this->conn->prepare($query);
+        // Execute query
+        $stmt->execute();
+        // Fetch a row
+        $result = $stmt->fetch();
+        // If nothing is returned, $result will be false
+        if ($result == false)
+            return false;
+        return true;
+    }
+
+    // FUNCTION TO CHECK IF EMAIL IS ALREADY EXIST
+    public function doesEmailAlreadyExist()
+    {
+        $query = "SELECT Email FROM " . $this->login_credentials . " WHERE Email='" . $this->email . "'";
+        // Prepare query statement
+        $stmt = $this->conn->prepare($query);
+        // Execute query
+        $stmt->execute();
+        // Fetch a row
+        $result = $stmt->fetch();
+        // If nothing is returned, $result will be false
+        if ($result == false)
+            return false;
+        return true;
+    }
     
+    // FUNCTION TO SEND OTP ON PHONE
     public function sendPhoneOTP($phone)
     {
         session_start();
@@ -101,6 +136,7 @@ class User
 
     }
 
+    // FUNCTION TO CHECK VERIFICATION TIMEOUT
     public function isTimeout() 
     {
         session_start();
@@ -111,6 +147,7 @@ class User
         return false;
     }
 
+    // FUNCTION TO MATCH ENTERED OTP
     public function matchOTP($otp) 
     {
 
@@ -123,24 +160,7 @@ class User
 
     }
 
-
-    // Function to check if the user already exist in db or not
-    public function doesPhoneAlreadyExist()
-    {
-        $query = "SELECT Phone FROM " . $this->login_credentials . " WHERE Phone='" . $this->phone . "'";
-        // Prepare query statement
-        $stmt = $this->conn->prepare($query);
-        // Execute query
-        $stmt->execute();
-        // Fetch a row
-        $result = $stmt->fetch();
-        // If nothing is returned, $result will be false
-        if ($result == false)
-            return false;
-        return true;
-    }
-
-    //Function for signing up the New User
+    // FUNCTION FOR SIGNING UP THE USER
     public function signup()
     {
         // Query to insert record
@@ -180,7 +200,7 @@ class User
         return false;
     }
 
-    // Function to login the user
+    // FUNCTION FOR SIGNING IN THE USER BY PHONE
     public function phoneSignin()
     {
         // Sanitize data

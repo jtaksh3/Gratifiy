@@ -39,8 +39,7 @@
 	margin-left: 15px;
 }
 .container .login-options button,
-.container .form button,
-input[type="button"] {
+.container .form button {
 	margin: 15px auto;
 	display: block;
 	background: none;
@@ -52,13 +51,11 @@ input[type="button"] {
 	width: 300px;
 	cursor: pointer;
 }
-input[type="button"],
 .container .form button {
 	pointer-events: none;
 }
 .container .login-options button:hover,
-.container .form button:hover,
-input[type="button"]:hover {
+.container .form button:hover {
 	background: #00a591;
 	color: #fff;
 }
@@ -68,16 +65,15 @@ input[type="button"]:hover {
 	display: block;
 	margin: auto;
 }
-#phone-password-input i,
-#phone-signin-password-input i {
+.password-input i {
 	float: right; 
 	cursor: pointer; 
 	margin: -55px 60px 0px 0px;
 	color: #00a591;
 }
-#phone-password-input p {
+/*#phone-password-input p {
 	padding: 0px 40px;
-}
+}*/
 .container .back-btn {
 	float: left;
 	background: transparent;
@@ -167,7 +163,7 @@ input[type="button"]:hover {
     -webkit-appearance: none;
     margin: 0;
 }
-.container .otp-input p input[type="button"] {
+.container .otp-input p button {
 	background: none;
 	border: none;
 	outline: none;
