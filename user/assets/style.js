@@ -324,6 +324,9 @@ $('#phone-input button').on('click',function() {
     
         success: function(response) {
 
+            $('#phone-input button')
+                .html('Next');
+
             $('.back-btn').css('visibility', 'hidden');
             $('.phone-value').text(phoneno);
 
@@ -556,6 +559,8 @@ $("#phone-signin-btn").on("click", function(event) {
         },
         success: function(response) {
 
+            $("#phone-signin-btn").html('Sign in');
+
             if (response.code == "SIGNIN_SUCCESS") {
                 //User credentials has been successfully validated
                 $("#phone-signin-btn")
@@ -580,6 +585,8 @@ $("#phone-signin-btn").on("click", function(event) {
             }
         },
         error: function(request, error) {
+
+            $("#phone-signin-btn").html('Sign in');
 
             $("#phone-signin-btn")
                 .html('<i class="fa fa-sign-in" aria-hidden="true"></i> Sign in')
@@ -946,7 +953,7 @@ $("#email-signin-btn").on("click", function(event) {
 
     event.preventDefault();
 
-    let emailno = $('#email').val();
+    let email = $('#email').val();
     let password = $('#email-signin-password').val();
 
     //AJAX request for signin form
@@ -956,7 +963,7 @@ $("#email-signin-btn").on("click", function(event) {
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify({
-            emailno: emailno,
+            email: email,
             password: password
         }),
         beforeSend: function() {
@@ -966,8 +973,11 @@ $("#email-signin-btn").on("click", function(event) {
                 .css("pointer-events", "none");
             $('#email').val('');
             $('#email-signin-password').val('');
+
         },
         success: function(response) {
+
+            $("#email-signin-btn").html('Sign in');
 
             if (response.code == "SIGNIN_SUCCESS") {
                 //User credentials has been successfully validated
@@ -993,6 +1003,8 @@ $("#email-signin-btn").on("click", function(event) {
             }
         },
         error: function(request, error) {
+
+            $("#email-signin-btn").html('Sign in');
 
             $("#email-signin-btn")
                 .html('<i class="fa fa-sign-in" aria-hidden="true"></i> Sign in')
