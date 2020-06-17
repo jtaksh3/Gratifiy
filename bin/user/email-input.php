@@ -26,9 +26,18 @@
         if($user->doesEmailAlreadyExist())
             // EXIT ON OTP SENT SUCCESSFULLY
             exit(json_encode(array("code" => 'ALREADY_REGISTERED')));
+
+        // GENERATE OTP BY CALLING GENERATE OTP FUNCTION OF USER CLASS
+        $otp = $user->generateOTP();
+
+        // HTML MESSAGE TO BE SENT
+        $htmlMessage = "Your OTP for the Verification is <b>" . $otp . "</b> which is valid for 3 minutes";
+
+        // RAW MESSAGE TO BE SENT
+        $rawMessage = "Your OTP for the Verification is " . $otp . " which is valid for 3 minutes";
     
         // IF EMAIL DOESN'T EXIST THEN SEND OTP TO EMAIL BY CALLING PHONE OTP FUNCTION OF USER CLASS
-        if($user->sendEmailOTP())
+        if($user->sendEmail('Verification', $htmlMessage, $rawMessage))
             // EXIT ON OTP MATCHED SUCCESSFUL
             exit(json_encode(array("code" => 'OTP_SENT_SUCCESSFULLY')));
     
@@ -82,8 +91,17 @@
         // CREATING OBJECT FOR USER CLASS BY PASSING DATABASE CLASS OBJECT TO ITS CONSTRUCTOR
         $user = new User($userDB);
 
+        // GENERATE OTP BY CALLING GENERATE OTP FUNCTION OF USER CLASS
+        $otp = $user->generateOTP();
+
+        // HTML MESSAGE TO BE SENT
+        $htmlMessage = "Your OTP for the Verification is <b>" . $otp . "</b> which is valid for 3 minutes";
+
+        // RAW MESSAGE TO BE SENT
+        $rawMessage = "Your OTP for the Verification is " . $otp . " which is valid for 3 minutes";
+
         // SEND OTP BY CALLING SEND EMAIL OTP FUNCTION OF USER CLASS
-        if($user->sendEmailOTP())
+        if($user->sendEmail('Verification', $htmlMessage, $rawMessage))
             // EXIT ON OTP SENT SUCCESSFULLY
             exit(json_encode(array("code" => 'OTP_SENT_SUCCESSFULLY')));
     

@@ -21,14 +21,20 @@
     
         // SETTING PHONE VALUE BY CALLING USER CLASS SETTER FUNCTION
         $user->setPhone($phone);
-    
+
         // CHECKS IF PHONE ALREADY EXIST BY CALLING PHONE ALREADY EXIST FUNCTION OF USER CLASS
         if($user->doesPhoneAlreadyExist())
             // EXIT ON ALREADY REGISTERED
             exit(json_encode(array("code" => 'ALREADY_REGISTERED')));
+
+        // GENERATE OTP BY CALLING GENERATE OTP FUNCTION OF USER CLASS
+        $otp = $user->generateOTP();
+
+        // MESSAGE TO BE SENT
+        $message="Your OTP for the Verification is " . $otp . " which is valid for 3 minutes";
     
         // IF PHONE DOESN'T EXIST THEN SEND OTP TO PHONE BY CALLING PHONE OTP FUNCTION OF USER CLASS
-        if($user->sendPhoneOTP())
+        if($user->sendText($message))
             // EXIT ON OTP SENT SUCCESSFULLY
             exit(json_encode(array("code" => 'OTP_SENT_SUCCESSFULLY')));
     
@@ -81,9 +87,15 @@
     
         // SETTING PHONE VALUE BY CALLING USER CLASS SETTER FUNCTION
         $user->setPhone($phone);
+
+        // GENERATE OTP BY CALLING GENERATE OTP FUNCTION OF USER CLASS
+        $otp = $user->generateOTP();
+
+        // MESSAGE TO BE SENT
+        $message="Your OTP for the Verification is " . $otp . " which is valid for 3 minutes";
     
         // SEND OTP BY CALLING SEND PHONE OTP FUNCTION OF USER CLASS
-        if($user->sendPhoneOTP())
+        if($user->sendText($message))
             // EXIT ON OTP SENT SUCCESSFULLY
             exit(json_encode(array("code" => 'OTP_SENT_SUCCESSFULLY')));
     
