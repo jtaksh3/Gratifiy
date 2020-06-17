@@ -59,14 +59,14 @@ function validatePhone(input) {
 
     if(phone_constraint.test(input.value)) {
 
-        $('#email-input button').css('pointer-events', 'auto');
+        $('#email-phone-input button').css('pointer-events', 'auto');
         $('#phone-input button').css('pointer-events', 'auto');
 
         }
     else {
 
         $('#phone-input button').css('pointer-events', 'none');
-        $('#email-input button').css('pointer-events', 'none');
+        $('#email-phone-input button').css('pointer-events', 'none');
 
     }
 
@@ -75,12 +75,16 @@ function validatePhone(input) {
 function validateSigninPassword(input) {
 
     if (input.value.trim().length) {
+
             $('#phone-signin-btn').css('pointer-events', 'auto');
             $('#email-signin-btn').css('pointer-events', 'auto');
+
         }
     else {
+
             $('#phone-signin-btn').css('pointer-events', 'none');
             $('#email-signin-btn').css('pointer-events', 'none');
+
         }
 }
 
@@ -255,12 +259,16 @@ function validateEmail(input) {
     let email_constraint = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     if(email_constraint.test(input.value)) {
+
         $('#phone-email-input button').css('pointer-events', 'auto');
         $('#email-input button').css('pointer-events', 'auto');
+
     }
     else {
+
         $('#phone-email-input button').css('pointer-events', 'none');
         $('#email-input button').css('pointer-events', 'none');
+
     }
 
 }
@@ -324,8 +332,7 @@ $('#phone-input button').on('click',function() {
     
         success: function(response) {
 
-            $('#phone-input button')
-                .html('Next');
+            $('#phone-input button').html('Next');
 
             $('.back-btn').css('visibility', 'hidden');
             $('.phone-value').text(phoneno);
@@ -465,12 +472,14 @@ function onFocusEvent1(index) {
 
 $('#phone-otp-resend-btn').on('click',function() {
 
+    let resendPhone = $('#phone').val();
+
     $.ajax({
         url: "../bin/user/phone-input.php",
         type: "POST",
         dataType: "json",
         data: {
-            resend: true
+            resendPhone: resendPhone
         },
 
         beforeSend: function() {
@@ -739,11 +748,14 @@ $('#email-input button').on('click',function() {
         beforeSend: function() {
     
             $('#email-input button')
-                .html('<i class="fas fa-sync-alt"></i> Please Wait')
+                .html('<i class="fa fa-circle-o-notch fa-spin"></i>   Please Wait')
                 .css("pointer-events", "none");
         },
     
         success: function(response) {
+
+            $('#email-input button')
+                .html('Next');
 
             $('.back-btn').css('visibility', 'hidden');
             $('.email-value').text(email);
@@ -818,17 +830,21 @@ function onKeyUpEvent2(index, event) {
                 type: "POST",
                 dataType: "json",
                 data: {
+
                     email1: email1,
                     email2: email2,
                     email3: email3,
                     email4: email4
+
                 },
 
                 beforeSend: function() {
+
                     $('#email-otp-input-1').val("");
                     $('#email-otp-input-2').val("");
                     $('#email-otp-input-3').val("");
                     $('#email-otp-input-4').val("");
+
                 },
     
                 success: function(response) {
@@ -853,13 +869,16 @@ function onKeyUpEvent2(index, event) {
                             $('#email-password-input').css('display', 'block');
 
                         }, 1000);
+
                     } 
 
                     else {
+
                         $('#email-otp-response').fadeIn();
                         $('#email-otp-response').css('color', 'red');
                         $('#email-otp-response').html('You have entered a Wrong OTP.');
                         $('#email-otp-response').fadeOut(5000);
+
                     }
                 }
 
@@ -871,27 +890,32 @@ function onKeyUpEvent2(index, event) {
         getCodeBoxElement2(index - 1).focus();
 }
 function onFocusEvent2(index) {
+
     for (item = 1; item < index; item++) {
+
         const currentElement = getCodeBoxElement2(item);
+
         if (!currentElement.value) {
+
             currentElement.focus();
             break;
+
         }
+
     }
+
 }
 
 $('#email-otp-resend-btn').on('click',function() {
+
+    let resendEmail = $('#email').val();
 
     $.ajax({
         url: "../bin/user/email-input.php",
         type: "POST",
         dataType: "json",
         data: {
-            resend: true
-        },
-
-        beforeSend: function() {
-            $('#email-otp-resend-btn').css('display', 'none');
+            resendEmail: resendEmail
         },
 
         success: function() {
@@ -1033,7 +1057,7 @@ $('#email-name-input button').on('click',function() {
     setTimeout(function() {
 
         $('#loader-container').css('display', 'none');
-        $('#email-email-input').css('display', 'block');
+        $('#email-phone-input').css('display', 'block');
         
     }, 1000);
 

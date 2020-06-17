@@ -74,7 +74,10 @@
     }
     
     // CHECKS IF VARIABLE IS SET
-    if (isset($_POST['resend'])) {
+    if (isset($_POST['resendPhone'])) {
+
+        // ASSIGNING PHONE VALUE TO A VARIABLE
+        $phone = $_POST['resendPhone'];
         
         //CREATING OBJECT FOR DATABASE CLASS
         $db = new Database();

@@ -60,7 +60,10 @@
     
         // ASSIGNING USER ENTERED OTP TO A VARIABLE (FOUR DIFFERENT FIELDS COMBINING INTO ONE)
         $otp = ($_POST['email1'] * 1000) + ($_POST['email2'] * 100) + ($_POST['email3'] * 10) + $_POST['email4'];
-    
+        
+        // STARTS THE SESSION
+        session_start();
+
         // CHECKS IF VERIFICATION TIMEOUT OCCURS BY CALLING IS TIMEOUT FUNCTION OF USER CLASS
         if($user->isTimeout())
             // EXIT ON TIMEOUT
@@ -77,10 +80,10 @@
     }
 
     // CHECKS IF VARIABLE IS SET
-    if (isset($_POST['resend-email'])) {
+    if (isset($_POST['resendEmail'])) {
 
         // ASSIGNING EMAIL VALUE TO A VARIABLE
-        $email = $_POST['resend-email'];
+        $email = $_POST['resendEmail'];
 
         //CREATING OBJECT FOR DATABASE CLASS
         $db = new Database();
@@ -90,6 +93,9 @@
     
         // CREATING OBJECT FOR USER CLASS BY PASSING DATABASE CLASS OBJECT TO ITS CONSTRUCTOR
         $user = new User($userDB);
+
+        // SETTING EMAIL VALUE BY CALLING USER CLASS SETTER FUNCTION
+        $user->setEmail($email);
 
         // GENERATE OTP BY CALLING GENERATE OTP FUNCTION OF USER CLASS
         $otp = $user->generateOTP();

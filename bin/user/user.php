@@ -194,7 +194,6 @@
             try {
 
                 // SERVER SETTINGS
-                $mail->SMTPDebug = 2;                                      // ENABLE VERBOSE DEBUG OUTPUT
                 $mail->isSMTP();                                           // SET MAILER TO USE SMTP
                 $mail->Host = $host;                                       // SPECIFY MAIN AND BACKUP SMTP SERVERS
                 $mail->SMTPAuth = true;                                    // ENABLE SMTP AUTHENTICATION
@@ -225,9 +224,6 @@
 
         // FUNCTION TO CHECK VERIFICATION TIMEOUT
         public function isTimeout() {
-    
-            // STARTS THE SESSION
-            session_start();
             
             // CHECKS IF THE CURRENT TIME IS MORE THAN 180 SECONDS SESSION
             if (($_SESSION['otp'] - time()) > 180 ) {
@@ -240,9 +236,6 @@
     
         // FUNCTION TO MATCH ENTERED OTP
         public function matchOTP($otp) {
-    
-            // STARTS THE SESSION
-            session_start();
             
             // CHECKS IF ENTERED OTP IS CORRECT
             if($_SESSION['otp'] == $otp)
