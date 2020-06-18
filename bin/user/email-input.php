@@ -24,7 +24,7 @@
 
         // CHECKS IF EMAIL ALREADY EXIST BY CALLING PHONE ALREADY EXIST FUNCTION OF USER CLASS
         if($user->doesEmailAlreadyExist())
-            // EXIT ON OTP SENT SUCCESSFULLY
+            // EXIT ON ALREADY REGISTERED
             exit(json_encode(array("code" => 'ALREADY_REGISTERED')));
 
         // GENERATE OTP BY CALLING GENERATE OTP FUNCTION OF USER CLASS
@@ -107,7 +107,7 @@
         $rawMessage = "Your OTP for the Verification is " . $otp . " which is valid for 3 minutes";
 
         // SEND OTP BY CALLING SEND EMAIL OTP FUNCTION OF USER CLASS
-        if($user->sendEmail('Verification', $htmlMessage, $rawMessage))
+        if($user->sendEmail('Resend Verification', $htmlMessage, $rawMessage))
             // EXIT ON OTP SENT SUCCESSFULLY
             exit(json_encode(array("code" => 'OTP_SENT_SUCCESSFULLY')));
     

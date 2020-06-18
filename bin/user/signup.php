@@ -33,6 +33,11 @@
         $user->setPhone($phone);
         $user->setPassword($password);
         $user->setCreated(date('Y-m-d H:i:s'));
+
+        // CHECKS IF PHONE OR EMAIL ALREADY EXIST BY CALLING FUNCTION OF USER CLASS
+        if($user->doesPhoneAlreadyExist() || $user->doesEmailAlreadyExist())
+            // EXIT ON ALREADY REGISTERED
+            exit(json_encode(array("code" => 'ALREADY_REGISTERED')));
         
         // CHECKS FOR SUCCESSFUL SIGNUP BY CALLING SIGNUP FUNCTION OF USER CLASS
         if ($user->signup()) {

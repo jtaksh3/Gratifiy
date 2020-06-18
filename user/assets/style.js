@@ -340,11 +340,13 @@ $('#phone-input button').on('click',function() {
             if (response.code == 'ALREADY_REGISTERED') {
 
                 $('#phone-input').css('display', 'none');
+                $('#phone-container').css('display', 'none');
                 $('#loader-container').css('display', 'block');
 
                 setTimeout(function() {
 
                     $('#loader-container').css('display', 'none');
+                    $('#phone-container').css('display', 'block');
                     $('#phone-signin-password-input').css('display', 'block');
 
                 }, 1000);
@@ -354,11 +356,13 @@ $('#phone-input button').on('click',function() {
             else if(response.code == 'OTP_SENT_SUCCESSFULLY'){
 
 	            $('#phone-input').css('display', 'none');
+                $('#phone-container').css('display', 'none');
                 $('#loader-container').css('display', 'block');
 
                 setTimeout(function() {
 
                     $('#loader-container').css('display', 'none');
+                    $('#phone-container').css('display', 'block');
                     $('#phone-otp-input').css('display', 'block');
 
                 }, 1000);
@@ -434,21 +438,25 @@ function onKeyUpEvent1(index, event) {
                     else if (response.code == 'OTP_MATCHED_SUCCESSFUL') {
 
                         $('#phone-otp-input').css('display', 'none');
+                        $('#phone-container').css('display', 'none');
                         $('#loader-container').css('display', 'block');
 
                         setTimeout(function() {
 
                             $('#loader-container').css('display', 'none');
+                            $('#phone-container').css('display', 'block');
                             $('#phone-password-input').css('display', 'block');
 
                         }, 1000);
                     } 
 
                     else {
+
                         $('#phone-otp-response').fadeIn();
                         $('#phone-otp-response').css('color', 'red');
                         $('#phone-otp-response').html('You have entered a Wrong OTP.');
                         $('#phone-otp-response').fadeOut(5000);
+
                     }
                 }
 
@@ -486,7 +494,7 @@ $('#phone-otp-resend-btn').on('click',function() {
             $('#phone-otp-resend-btn').css('display', 'none');
         },
 
-        success: function() {
+        success: function(response) {
 
             if (response.code == 'OTP_SENT_SUCCESSFULLY') {
 
@@ -527,12 +535,15 @@ $('#phone-otp-resend-btn').on('click',function() {
 $('#phone-password-input button').on('click',function() {
 
     $('#phone-password-input').css('display', 'none');
+    $('#phone-container').css('display', 'none');
     $('#loader-container').css('display', 'block');
 
     setTimeout(function() {
 
         $('#loader-container').css('display', 'none');
+        $('#phone-container').css('display', 'block');
         $('#phone-name-input').css('display', 'block');
+
     }, 1000);
 
 });
@@ -568,14 +579,25 @@ $("#phone-signin-btn").on("click", function(event) {
         },
         success: function(response) {
 
-            $("#phone-signin-btn").html('Sign in');
+            $("#phone-signin-btn").html('<i class="fa fa-sign-in" aria-hidden="true"></i> Continue');
 
             if (response.code == "SIGNIN_SUCCESS") {
                 //User credentials has been successfully validated
                 $("#phone-signin-btn")
                     .html('<i class="fa fa-spinner fa-spin"></i>   Signing in')
                     .css("pointer-events", "auto");
-                window.parent.location.href = "../index.php";
+
+                $('#phone-container').css('display', 'none');
+                $('#loader-container').css('display', 'block');
+
+                setTimeout(function() {
+
+                    $('#loader-container').css('display', 'none');
+                    $('#phone-container').css('display', 'block');
+
+                    parent.location.reload();
+
+                }, 3000); 
 
             } else {
                 //User has provided invalid credentials or is not registered
@@ -595,7 +617,7 @@ $("#phone-signin-btn").on("click", function(event) {
         },
         error: function(request, error) {
 
-            $("#phone-signin-btn").html('Sign in');
+            $("#phone-signin-btn").html('<i class="fa fa-sign-in" aria-hidden="true"></i> Continue');
 
             $("#phone-signin-btn")
                 .html('<i class="fa fa-sign-in" aria-hidden="true"></i> Sign in')
@@ -619,11 +641,13 @@ $("#phone-signin-btn").on("click", function(event) {
 $('#phone-name-input button').on('click',function() {
 
     $('#phone-name-input').css('display', 'none');
+    $('#phone-container').css('display', 'none');
     $('#loader-container').css('display', 'block');
 
     setTimeout(function() {
 
         $('#loader-container').css('display', 'none');
+        $('#phone-container').css('display', 'block');
         $('#phone-email-input').css('display', 'block');
         
     }, 1000);
@@ -660,24 +684,53 @@ $('#phone-email-input button').on('click',function(event) {
             $('#phone-email-input button')
                 .html('<i class="fas fa-sync-alt"></i> Please Wait')
                 .css("pointer-events", "none");
-            $('#phone').val('');
-            $('#phone-password').val('');
-            $('#phone-name').val('');
-            $('#phone-email').val('');
 
         },
     
         success: function(response) {
 
-            if (response.code == "SIGNUP_SUCCESS") {
+            if (response.code == 'ALREADY_REGISTERED') {
+
+                $('#phone-email-input button').html('<i class="fa fa-user-plus" aria-hidden="true"></i> Continue');
+
+                $('#phone-email').val('');
+                $('#phone-email-response').fadeIn();
+                $('#phone-email-response').html('Email is already Associated with another Account');
+                $('#phone-email-response').fadeOut(7000);
+
+            }
+
+            else if (response.code == "SIGNUP_SUCCESS") {
+
+                $('#phone').val('');
+                $('#phone-password').val('');
+                $('#phone-name').val('');
+                $('#phone-email').val('');
 
                 $('#phone-email-input button').html('<i class="fa fa-circle-o-notch fa-spin"></i>   Signing up');
 
-                window.parent.location.href = "../index.php";
+                $('#phone-container').css('display', 'none');
+                $('#loader-container').css('display', 'block');
+
+                setTimeout(function() {
+
+                    $('#loader-container').css('display', 'none');
+                    $('#phone-container').css('display', 'block');
+
+                    parent.location.reload();
+
+                }, 3000); 
 
             }
 
             else {
+
+                $('#phone-email-input button').html('<i class="fa fa-user-plus" aria-hidden="true"></i> Continue');
+
+                $('#phone').val('');
+                $('#phone-password').val('');
+                $('#phone-name').val('');
+                $('#phone-email').val('');
 
                 $('#phone-email-input').css('display', 'none');
                 $('#phone-input').css('display', 'block');
@@ -692,6 +745,13 @@ $('#phone-email-input button').on('click',function(event) {
         },
 
         error: function(request, error) {
+
+            $('#phone-email-input button').html('<i class="fa fa-user-plus" aria-hidden="true"></i> Continue');
+
+            $('#phone').val('');
+            $('#phone-password').val('');
+            $('#phone-name').val('');
+            $('#phone-email').val('');
 
             $('#phone-email-input').css('display', 'none');
             $('#phone-input').css('display', 'block');
@@ -763,11 +823,13 @@ $('#email-input button').on('click',function() {
             if (response.code == 'ALREADY_REGISTERED') {
 
                 $('#email-input').css('display', 'none');
+                $('#email-container').css('display', 'none');
                 $('#loader-container').css('display', 'block');
 
                 setTimeout(function() {
 
                     $('#loader-container').css('display', 'none');
+                    $('#email-container').css('display', 'block');
                     $('#email-signin-password-input').css('display', 'block');
 
                 }, 1000);
@@ -777,11 +839,13 @@ $('#email-input button').on('click',function() {
             else if(response.code == 'OTP_SENT_SUCCESSFULLY'){
 
                 $('#email-input').css('display', 'none');
+                $('#email-container').css('display', 'none');
                 $('#loader-container').css('display', 'block');
 
                 setTimeout(function() {
 
                     $('#loader-container').css('display', 'none');
+                    $('#email-container').css('display', 'block');
                     $('#email-otp-input').css('display', 'block');
 
                 }, 1000);
@@ -861,11 +925,13 @@ function onKeyUpEvent2(index, event) {
                     else if (response.code == 'OTP_MATCHED_SUCCESSFUL') {
 
                         $('#email-otp-input').css('display', 'none');
+                        $('#email-container').css('display', 'none');
                         $('#loader-container').css('display', 'block');
 
                         setTimeout(function() {
 
                             $('#loader-container').css('display', 'none');
+                            $('#email-container').css('display', 'block');
                             $('#email-password-input').css('display', 'block');
 
                         }, 1000);
@@ -918,7 +984,19 @@ $('#email-otp-resend-btn').on('click',function() {
             resendEmail: resendEmail
         },
 
-        success: function() {
+        beforeSend: function() {
+
+            $('#email-otp-resend-btn')
+                .html('<i class="fa fa-circle-o-notch fa-spin"></i>   Please Wait')
+                .css("pointer-events", "none");
+        },
+
+
+        success: function(response) {
+
+            $('#email-otp-resend-btn')
+                .html('Resend OTP')
+                .css("pointer-events", "auto");
 
             if (response.code == 'OTP_SENT_SUCCESSFULLY') {
 
@@ -959,11 +1037,13 @@ $('#email-otp-resend-btn').on('click',function() {
 $('#email-password-input button').on('click',function() {
 
     $('#email-password-input').css('display', 'none');
+    $('#email-container').css('display', 'none');
     $('#loader-container').css('display', 'block');
 
     setTimeout(function() {
 
         $('#loader-container').css('display', 'none');
+        $('#email-container').css('display', 'block');
         $('#email-name-input').css('display', 'block');
     }, 1000);
 
@@ -1001,14 +1081,25 @@ $("#email-signin-btn").on("click", function(event) {
         },
         success: function(response) {
 
-            $("#email-signin-btn").html('Sign in');
+            $("#email-signin-btn").html('<i class="fa fa-sign-in" aria-hidden="true"></i> Continue');
 
             if (response.code == "SIGNIN_SUCCESS") {
                 //User credentials has been successfully validated
                 $("#email-signin-btn")
                     .html('<i class="fa fa-spinner fa-spin"></i>   Signing in')
                     .css("pointer-events", "auto");
-                window.parent.location.href = "../index.php";
+
+                $('#email-container').css('display', 'none');
+                $('#loader-container').css('display', 'block');
+
+                setTimeout(function() {
+
+                    $('#loader-container').css('display', 'none');
+                    $('#email-container').css('display', 'block');
+
+                    parent.location.reload();
+
+                }, 3000);  
 
             } else {
                 //User has provided invalid credentials or is not registered
@@ -1028,7 +1119,7 @@ $("#email-signin-btn").on("click", function(event) {
         },
         error: function(request, error) {
 
-            $("#email-signin-btn").html('Sign in');
+            $("#email-signin-btn").html('<i class="fa fa-sign-in" aria-hidden="true"></i> Continue');
 
             $("#email-signin-btn")
                 .html('<i class="fa fa-sign-in" aria-hidden="true"></i> Sign in')
@@ -1052,11 +1143,13 @@ $("#email-signin-btn").on("click", function(event) {
 $('#email-name-input button').on('click',function() {
 
     $('#email-name-input').css('display', 'none');
+    $('#email-container').css('display', 'none');
     $('#loader-container').css('display', 'block');
 
     setTimeout(function() {
 
         $('#loader-container').css('display', 'none');
+        $('#email-container').css('display', 'block');
         $('#email-phone-input').css('display', 'block');
         
     }, 1000);
@@ -1093,24 +1186,54 @@ $('#email-phone-input button').on('click',function(event) {
             $('#email-phone-input button')
                 .html('<i class="fas fa-sync-alt"></i> Please Wait')
                 .css("pointer-events", "none");
-            $('#email').val('');
-            $('#email-password').val('');
-            $('#email-name').val('');
-            $('#email-phone').val('');
 
         },
     
         success: function(response) {
 
-            if (response.code == "SIGNUP_SUCCESS") {
+
+            if (response.code == 'ALREADY_REGISTERED') {
+
+                $('#email-phone-input button').html('<i class="fa fa-user-plus" aria-hidden="true"></i> Continue');
+
+                $('#email-phone').val('');
+                $('#email-phone-response').fadeIn();
+                $('#email-phone-response').html('Phone is already Associated with another Account');
+                $('#email-phone-response').fadeOut(7000);
+
+            }
+
+            else if (response.code == "SIGNUP_SUCCESS") {
+
+                $('#email').val('');
+                $('#email-password').val('');
+                $('#email-name').val('');
+                $('#email-phone').val('');
 
                 $('#email-phone-input button').html('<i class="fa fa-circle-o-notch fa-spin"></i>   Signing up');
 
-                window.parent.location.href = "../index.php";
+                $('#email-container').css('display', 'none');
+                $('#loader-container').css('display', 'block');
+
+                setTimeout(function() {
+
+                    $('#loader-container').css('display', 'none');
+                    $('#email-container').css('display', 'block');
+
+                    parent.location.reload();
+
+                }, 3000);   
 
             }
 
             else {
+
+                $('#email-phone-input button').html('<i class="fa fa-user-plus" aria-hidden="true"></i> Continue');
+
+                $('#email').val('');
+                $('#email-password').val('');
+                $('#email-name').val('');
+                $('#email-phone').val('');
 
                 $('#email-phone-input').css('display', 'none');
                 $('#email-input').css('display', 'block');
@@ -1125,6 +1248,13 @@ $('#email-phone-input button').on('click',function(event) {
         },
 
         error: function(request, error) {
+
+            $('#email-phone-input button').html('<i class="fa fa-user-plus" aria-hidden="true"></i> Continue');
+
+            $('#email').val('');
+            $('#email-password').val('');
+            $('#email-name').val('');
+            $('#email-phone').val('');
 
             $('#email-phone-input').css('display', 'none');
             $('#email-input').css('display', 'block');

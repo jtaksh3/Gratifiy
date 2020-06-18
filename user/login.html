@@ -35,7 +35,7 @@
             </div>
             <p>We won't share your Personal Details with Anyone</p>
         </div>
-        <div class="container" id="loader-container" style="padding: 170px 0px; animation: none; display: none;">
+        <div class="container" id="loader-container" style="padding: 170px 0px; animation: none; display: none; height: ">
             <img src="./assets/img/load.gif" style="margin: auto; display: block;">
         </div>
         <div class="container" id="phone-container" style="display: none;">
@@ -60,22 +60,22 @@
                     <p id="phone-otp-response"></p>
                     <p><button id="phone-otp-resend-btn">Resend OTP</button></p>
                 </div>
-                <div class="password-input" id="phone-password-input" style="display: none;">
+                <div id="phone-password-input" style="display: none;">
                     <label>Create a Password to login faster next time</label>
                     <p>You are creating a password for <span style="font-weight: 600;" class="phone-value"></span> This will help you login faster next time.</p>
                     <div class="phone-password-input-field">
                         <input class="input-field-css" type="password" id="phone-password" placeholder="Password" />
-                        <i id="toggle-phone-password" class="fas fa-eye" onclick="togglePhonePassword()"></i>
+                        <i id="toggle-phone-password" class="fas fa-eye toggle" onclick="togglePhonePassword()"></i>
                         <input class="input-field-css" type="password" oninput="matchPassword(this)" id="phone-cpassword" placeholder="Confirm Password" />
-                        <i id="toggle-phone-cpassword" class="fas fa-eye" onclick="togglePhoneCPassword()"></i>
+                        <i id="toggle-phone-cpassword" class="fas fa-eye toggle" onclick="togglePhoneCPassword()"></i>
                     </div>
                     <button>Create Password</button>
                 </div>
-                <div class="password-input" id="phone-signin-password-input" style="display: none;">
+                <div id="phone-signin-password-input" style="display: none;">
                     <label>Enter a Password</label>
                     <div class="phone-password-input-field">
                         <input class="input-field-css" type="password" id="phone-signin-password" oninput="validateSigninPassword(this)" placeholder="Password" />
-                        <i id="toggle-phone-signin-password" class="fas fa-eye" onclick="togglePhoneSigninPassword()"></i>
+                        <i id="toggle-phone-signin-password" class="fas fa-eye toggle" onclick="togglePhoneSigninPassword()"></i>
                     </div>
                     <button id="phone-signin-btn"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in</button>
                 </div>
@@ -91,6 +91,7 @@
                     <label>Enter your Email</label>
                     <input class="input-field-css" type="email" oninput="validateEmail(this)" id="phone-email" placeholder="Email" autocomplete="off" />
                     <button><i class="fa fa-user-plus" aria-hidden="true"></i> Continue</button>
+                    <p id="phone-email-response" style="color: red;"></p>
                     <p>We won't reveal your Email to anyone else nor use it to send you Spams</p>
                 </div>
             </div>
@@ -117,24 +118,24 @@
                     <p id="email-otp-response"></p>
                     <p><button id="email-otp-resend-btn">Resend OTP</button></p>
                 </div>
-                <div class="password-input" id="email-password-input" style="display: none;">
+                <div id="email-password-input" style="display: none;">
                     <label>Create a Password to login faster next time</label>
                     <p>You are creating a password for <span style="font-weight: 600;" class="email-value"></span> This will help you login faster next time.</p>
                     <div class="email-password-input-field">
                         <input class="input-field-css" type="password" id="email-password" placeholder="Password" />
-                        <i id="toggle-email-password" class="fas fa-eye" onclick="toggleEmailPassword()"></i>
+                        <i id="toggle-email-password" class="fas fa-eye toggle" onclick="toggleEmailPassword()"></i>
                         <input class="input-field-css" type="password" oninput="matchPassword(this)" id="email-cpassword" placeholder="Confirm Password" />
-                        <i id="toggle-email-cpassword" class="fas fa-eye" onclick="toggleEmailCPassword()"></i>
+                        <i id="toggle-email-cpassword" class="fas fa-eye toggle" onclick="toggleEmailCPassword()"></i>
                     </div>
                     <button>Create Password</button>
                 </div>
-                <div class="password-input" id="email-signin-password-input" style="display: none;">
+                <div id="email-signin-password-input" style="display: none;">
                     <label>Enter a Password</label>
                     <div class="email-password-input-field">
                         <input class="input-field-css" type="password" id="email-signin-password" oninput="validateSigninPassword(this)" placeholder="Password" />
-                        <i id="toggle-email-signin-password" class="fas fa-eye" onclick="toggleEmailSigninPassword()"></i>
+                        <i id="toggle-email-signin-password" class="fas fa-eye  toggle" onclick="toggleEmailSigninPassword()"></i>
                     </div>
-                    <button id="email-signin-btn"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in</button>
+                    <button id="email-signin-btn"><i class="fa fa-sign-in" aria-hidden="true"></i> Continue</button>
                 </div>
                 <div id="email-name-input"  style="display: none;">
                     <label>What's your name?</label>
@@ -148,6 +149,7 @@
                     <label>Enter your Phone</label>
                     <span class="textbox">+91 <input type="tel" id="email-phone" oninput="validatePhone(this)" placeholder="Phone Number" autocomplete="off" /></span>
                     <button><i class="fa fa-user-plus" aria-hidden="true"></i> Continue</button>
+                    <p id="email-phone-response" style="color: red;"></p>
                     <p>We won't reveal your Phone Number to anyone else nor use it to send you Spams</p>
                 </div>
             </div>
